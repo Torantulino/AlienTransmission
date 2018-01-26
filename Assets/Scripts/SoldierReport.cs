@@ -9,6 +9,10 @@ public class SoldierReport : MonoBehaviour {
 
 
 	void Update() {
+		Report();
+	}
+
+	public void Report() {
 		HashSet<GameObject> seen = new HashSet<GameObject>();
 
 		for (int i = 0; i < numRays; i++) {
@@ -30,7 +34,7 @@ public class SoldierReport : MonoBehaviour {
 		}
 
 		foreach(var thing in seen) {
-			Debug.Log(thing.GetComponent<Interesting>().name);
+			Debug.Log(transform.name + " saw " + thing.GetComponent<Interesting>().name);
 		}
 	}
 }
