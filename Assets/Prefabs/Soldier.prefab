@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 23744569199236916}
   - component: {fileID: 195091001981097338}
   - component: {fileID: 114875192760258874}
+  - component: {fileID: 114304646108163818}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Untagged
@@ -85,6 +86,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1859916745765550}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114304646108163818
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1859916745765550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e87fefe0611794d9dab7e5b1f79c04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fieldOfView: 45
 --- !u!114 &114875192760258874
 MonoBehaviour:
   m_ObjectHideFlags: 1
