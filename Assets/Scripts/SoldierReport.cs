@@ -33,6 +33,10 @@ public class SoldierReport : MonoBehaviour {
 			}
 		}
 
+		// TODO: Priority for interesting things.
+		// Report highest priority.
+		// Randomise reporting other things priority order.
+
 		foreach(var thing in seen) {
 			Debug.Log(transform.name + " saw " + thing.GetComponent<Interesting>().name);
 		}
