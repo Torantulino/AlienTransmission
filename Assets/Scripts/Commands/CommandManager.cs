@@ -7,22 +7,21 @@ public class CommandManager : MonoBehaviour
     public GameObject CurrentUnit;
     public float CommandTime;
 
-    public void MoveUnit(Vector3 position)
+    private IEnumerator DoMovement(NavMeshAgent navAgent, Vector3 position)
     {
-        if (CurrentUnit != null && CurrentUnit.GetComponent<NavMeshAgent>() != null)
-        {
-            var navMesh = CurrentUnit.GetComponent<NavMeshAgent>();
-            navMesh.destination = position;
-            StartCoroutine(DoMovement(navMesh, position));
-        }
+        navAgent.isStopped = false;
+        navAgent.destination = position;
+        yield return new WaitForSeconds(CommandTime);
+        navAgent.isStopped = true;
     }
 
-    private IEnumerator DoMovement(NavMeshAgent navMesh, Vector3 position)
+    private void MoveUnit(Vector3 position)
     {
-        navMesh.isStopped = false;
-        navMesh.destination = position;
-        yield return new WaitForSeconds(CommandTime);
-        navMesh.isStopped = true;
+        if (CurrentUnit != null)
+        {
+            var navAgent = CurrentUnit.GetComponent<NavMeshAgent>();
+            navAgent.destination = position;
+        }
     }
 
     //QUick test code
@@ -30,15 +29,35 @@ public class CommandManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            //TODO: Click on unit
+            //Issue command
+            //Once unit has three commands
+            //Run commands
+
+
+
             //Click on position
             //Find nearest grid position
             //Move for X seconds
+
+            //Player should select grid position
+            //Grid position should be converted to world point
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                MoveUnit(hit.point);
+                var hitObj = hit.collider.gameObject;
+
+                if (hitObj.GetComponent<NavigateTo>())
+                {
+                    CurrentUnit = hitObj;
+                    Debug.Log("unit selected is " + CurrentUnit.name);
+                }
+                else
+                {
+                    MoveUnit(hit.point);
+                }
             }
         }
     }
