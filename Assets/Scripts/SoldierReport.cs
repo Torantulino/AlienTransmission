@@ -11,12 +11,6 @@ public class SoldierReport : MonoBehaviour {
 	public float maxReports = 3;
 
 	void Update() {
-		if (Random.value < 0.01) {
-			Debug.Log("REPORT: ");
-			foreach (var report in Report()) {
-				Debug.Log(report);
-			}
-		}
 	}
 
 	public List<string> Report() {
@@ -41,9 +35,6 @@ public class SoldierReport : MonoBehaviour {
 			}
 		}
 
-		// TODO: Priority for interesting things.
-		// Report highest priority.
-		// Randomise reporting other things priority order.
 
 		var counts = seen.GroupBy(item => item.Type).Select(group => new {
 			Type = group.Key,
