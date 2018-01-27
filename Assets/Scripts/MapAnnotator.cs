@@ -23,11 +23,15 @@ public class MapAnnotator : MonoBehaviour
 
     public void PlaceIcon()
     {
-        Vector2 localCoord;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(panelRect, Input.mousePosition, null, out localCoord);
+        if (selectedIcon != null)
+        {
+            Vector2 localCoord;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(panelRect, Input.mousePosition, null,
+                out localCoord);
 
-        placedIcon = Instantiate(selectedIcon, localCoord, Quaternion.identity, this.transform);
-        placedIcon.transform.localPosition = localCoord;
+            placedIcon = Instantiate(selectedIcon, localCoord, Quaternion.identity, this.transform);
+            placedIcon.transform.localPosition = localCoord;
+        }
     }
 
     void OnGUI()
@@ -44,8 +48,6 @@ public class MapAnnotator : MonoBehaviour
 				float camY = localCoord.y * AOCam.pixelRect.height / panelRect.rect.height;
 				Ray worldRay = AOCam.ScreenPointToRay(new Vector2(camX, camY));	
 				Vector3 worldPoint = worldRay.GetPoint(5);
-
-				Debug.Log(worldPoint);
             }
             
         }
