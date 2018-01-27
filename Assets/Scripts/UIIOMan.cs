@@ -274,14 +274,32 @@ public class UIIOMan : MonoBehaviour
         //Update Input
         terminalInput.GetComponent<Text>().text = DOrder;
 
-        //Update Output
-	    for (int i = 0; i < 3;i++)
-	    {
-	        for (int j = 0; j < 4; j++)
-	        {
-	            radioArray[i,j].GetComponent<Text>().text = cmdArray[j,i];
-	        }
-	    }
+		if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) {
+			//Update Output
+			for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < 4; j++) {
+					radioArray[i, j].GetComponent<Text>().text = cmdArray[j, i];
+				}
+			}
+		}
 	}
 
+	public void Report(List<string> reports, string soldierName) {
+		int soldierId = 0;
+		if (soldierName.ToUpper() == "ALPHA") {
+			soldierId = 0;
+		} else if (soldierName.ToUpper() == "BRAVO") {
+			soldierId = 1;
+		} else if (soldierName.ToUpper() == "CHARLIE") {
+			soldierId = 2;
+		} else if (soldierName.ToUpper() == "DELTA") {
+			soldierId = 3;
+		}
+
+		int i = 0;
+		foreach (var report in reports) {
+			radioArray[i % radioArray.GetLength(0), soldierId].GetComponent<Text>().text = report;
+			i++;
+		}
+	}
 }
