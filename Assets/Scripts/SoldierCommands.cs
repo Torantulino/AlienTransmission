@@ -52,7 +52,10 @@ public class SoldierCommands : MonoBehaviour
 
     public void EndCommands()
     {
-        agent.isStopped = true;
+        if (agent != null)
+        {
+            agent.isStopped = true;
+        }
         CanAction = false;
         CommandList.Clear();
     }
@@ -68,7 +71,7 @@ public class SoldierCommands : MonoBehaviour
                 yield return StartCoroutine(HandleFaceCommand((FaceCommand)currentCommand));
                 break;
             case CommandEnum.Attack:
-                HandleEngage((AttackCommand)currentCommand);
+                yield return StartCoroutine(HandleEngage((AttackCommand)currentCommand));
                 break;
         }
     }
