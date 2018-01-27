@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 
 
-public class script : MonoBehaviour
+public class UIIOMan : MonoBehaviour
 {
     public GameObject alphaRad1;
     public GameObject alphaRad2;
@@ -20,10 +20,16 @@ public class script : MonoBehaviour
     public GameObject deltaRad1;
     public GameObject deltaRad2;
     public GameObject deltaRad3;
+    public GameObject terminalInput;
+
+    public CommandController CmdController;
 
     public const int numOrder = 3;
 
-    private GameObject[][] radioArray;
+    private string DOrder = "";
+    private int ticker = 0;
+
+    private GameObject[,] radioArray;
     private string[,] cmdArray; // array of commands for each soldier
     private string CurrentOrder;
     private int state = 0;
@@ -38,19 +44,22 @@ public class script : MonoBehaviour
         //Use this to access text: alphaRad1.InputField.text
         //Use this to set text (feedback from Agents): SEE BELOW
 
+        radioArray = new GameObject[3,4];
+
         //Populate Radio Array
-        radioArray[0][0] = alphaRad1;
-	    radioArray[1][0] = alphaRad2;
-	    radioArray[2][0] = alphaRad3;
-	    radioArray[0][1] = bravoRad1;
-	    radioArray[1][1] = bravoRad2;
-	    radioArray[2][1] = bravoRad3;
-	    radioArray[0][2] = charlieRad1;
-	    radioArray[1][2] = charlieRad2;
-	    radioArray[2][2] = charlieRad3;
-	    radioArray[0][3] = deltaRad1;
-	    radioArray[1][3] = deltaRad2;
-	    radioArray[2][3] = deltaRad3;
+        radioArray[0,0] = alphaRad1;
+	    radioArray[1,0] = alphaRad2;
+	    radioArray[2,0] = alphaRad3;
+	    radioArray[0,1] = bravoRad1;
+	    radioArray[1,1] = bravoRad2;
+	    radioArray[2,1] = bravoRad3;
+	    radioArray[0,2] = charlieRad1;
+	    radioArray[1,2] = charlieRad2;
+	    radioArray[2,2] = charlieRad3;
+	    radioArray[0,3] = deltaRad1;
+	    radioArray[1,3] = deltaRad2;
+	    radioArray[2,3] = deltaRad3;
+    
 
         cmdArray = new string[4, numOrder];
         for (int i = 0; i < 4; i++)
@@ -63,29 +72,33 @@ public class script : MonoBehaviour
        
 
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    public void ExecuteCmds() {
+        CmdController.UpdateCommands(cmdArray);
+    }
+
+    // Update is called once per frame
+    void Update() {
         int[] emptyslot;
         emptyslot = new int[4];
 
         //Recieve Intel ##Extract to relevet method##
-	    string intel = "";
-	    radioArray[0][0].GetComponent<InputField>().enabled = false;   //Disable InputField to allow text display.
-	    radioArray[0][0].GetComponent<Text>().text = intel;            //Display text.
+        //string intel = "";
+        //radioArray[0][0].GetComponent<InputField>().enabled = false;   //Disable InputField to allow text display.
+        //radioArray[0][0].GetComponent<Text>().text = intel;            //Display text.
 
 
         // clear empty orders from the array
         for (int i = 0; i < 4; i++)
         {
-            emptyslot[i] = 99;
+            emptyslot[i] = numOrder-1;
             for (int j = 0; j < numOrder - 1; j++)
             {
-                if (cmdArray[i,j] == "")
+                if (cmdArray[i, j] == "")
                 {
                     emptyslot[i] = Math.Min(emptyslot[i], j);
-                    cmdArray[i,j] = cmdArray[i,j + 1];
-                    cmdArray[i,j + 1] = "";
+                    cmdArray[i, j] = cmdArray[i, j + 1];
+                    cmdArray[i, j + 1] = "";
                 }
             }
         }
@@ -117,6 +130,7 @@ public class script : MonoBehaviour
             if (Input.GetKeyDown("backspace"))
             {
                 cmdArray[Cman, Lslot] = "";
+                if (Lslot > 0) Lslot = Lslot - 1;
             }
 
         }
@@ -181,15 +195,58 @@ public class script : MonoBehaviour
                     Csubject = "";
                     Cverb = "";
                     Cobject = "";
+                    DOrder = "[TRANSMITTING]";
                     state = 0;
-                } else
+                } else if (Cverb != "ENGAGE")
                 {
                     Cobject += c;
                 }
             }
         }
+        if (Cobject != "")
+        {
+            CurrentOrder = Csubject + " " + Cverb + " " + Cobject;
+        }
+        else if (Cverb != "")
+        {
+            CurrentOrder = Csubject + " " + Cverb;
+        }
+        else if (Csubject != "")
+        {
+            CurrentOrder = Csubject;
+        }
+        else CurrentOrder = "";
 
-        CurrentOrder = Csubject + " " + Cverb + " " + Cobject;
 
-    }
+        //Update UI
+        ticker += 1;
+        if (ticker == 4)
+        {
+            ticker = 0;
+            if (DOrder != CurrentOrder + "_")
+            {
+                if ((DOrder.Length - 1) > CurrentOrder.Length)
+                {
+                    DOrder = DOrder.Substring(0, DOrder.Length - 2) + "_";
+                }
+                else
+                {
+                    DOrder = CurrentOrder.Substring(0, DOrder.Length) + "_";
+                }
+
+            }
+        }
+        //Update Input
+        terminalInput.GetComponent<Text>().text = DOrder;
+
+        //Update Output
+	    for (int i = 0; i < 3;i++)
+	    {
+	        for (int j = 0; j < 4; j++)
+	        {
+	            radioArray[i,j].GetComponent<Text>().text = cmdArray[j,i];
+	        }
+	    }
+	}
+
 }
