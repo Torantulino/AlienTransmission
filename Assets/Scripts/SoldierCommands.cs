@@ -44,6 +44,19 @@ public class SoldierCommands : MonoBehaviour
         }
     }
 
+    public void EnableActions()
+    {
+        agent.isStopped = false;
+        CanAction = true;
+    }
+
+    public void EndCommands()
+    {
+        agent.isStopped = true;
+        CanAction = false;
+        CommandList.Clear();
+    }
+
     private IEnumerator HandleCommands(ICommand currentCommand)
     {
         switch (currentCommand.CommandType)

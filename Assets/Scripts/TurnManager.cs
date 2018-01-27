@@ -93,11 +93,11 @@ public class TurnManager : MonoBehaviour
 
     private void EnterPlayerMovingMode()
     {
-        TransmitButton.interactable = true;
+        TransmitButton.interactable = false;
 
         foreach (var soldier in SoldierList)
         {
-            soldier.CanAction = true;
+            soldier.EnableActions();
         }
     }
 
@@ -105,7 +105,7 @@ public class TurnManager : MonoBehaviour
     {
         foreach (var soldier in SoldierList)
         {
-            soldier.CanAction = false;
+            soldier.EndCommands();
         }
 
         foreach (var alien in AlienList)
