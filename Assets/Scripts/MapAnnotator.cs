@@ -15,9 +15,14 @@ public class MapAnnotator : MonoBehaviour
 		panelRect = GetComponent<RectTransform>();
 	}
 
-    public void placeIcon(Vector2 pos)
+    public void SelectIcon()
     {
+        selectedIcon = EventSystem.current.currentSelectedGameObject.transform.GetChild(0).gameObject;
+    }
 
+    public void PlaceIcon(Vector2 pos)
+    {
+       // Instantiate(selectedIcon, new Vector3(2, 0, 0), Quaternion.identity);
     }
 
     void OnGUI()
@@ -35,6 +40,7 @@ public class MapAnnotator : MonoBehaviour
 				Ray worldRay = AOCam.ScreenPointToRay(new Vector2(camX, camY));	
 				Vector3 worldPoint = worldRay.GetPoint(5);
             }
+            PlaceIcon((Input.mousePosition));
         }
     }
 
