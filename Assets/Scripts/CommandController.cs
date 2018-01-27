@@ -7,7 +7,8 @@ using UnityEngine.UI;
 
 public class CommandController : MonoBehaviour
 {
-    public List<GameObject> SoldierList;
+    public List<SoldierInfo> SoldierList;
+    public GridScript gridScript;
 
     public void UpdateCommands(string[,] cmdArray)
     {
@@ -36,25 +37,32 @@ public class CommandController : MonoBehaviour
         if (splitText.Count() > 2)
             commandInfo = splitText[2];
 
-        var solider = SoldierList.FirstOrDefault(x => x.name.ToUpper() == unitName);
+        var solider = SoldierList.FirstOrDefault(x => x.Name.ToUpper() == unitName);
 
         //Otherwise add action to soldier
         var commands = solider.GetComponent<SoldierCommands>();
 
         if (mainCommand == Commands.MoveCommand)
         {
+            var destPos = gridScript.GridStringToCoords(commandInfo);
+            var destination = gridScript.GridCoordstoWorld(destPos);
+            destination.y = 0f;
             var movementCommand = new MovementCommand()
             {
-                Destination = new Vector3(180f, 0.5f, 1456.52f)
+                Destination = destination
             };
 
             commands.CommandList.Add(movementCommand);
         }
         else
         {
+            var destPos = gridScript.GridStringToCoords(commandInfo);
+            var destination = gridScript.GridCoordstoWorld(destPos);
+            destination.y = 0f;
+
             var faceCommand = new FaceCommand()
             {
-                Target = new Vector3(190f, 0.5f, 1400f)
+                Target = destination
             };
 
             commands.CommandList.Add(faceCommand);
