@@ -74,7 +74,7 @@ public class UIIOMan : MonoBehaviour
 	}
 
     public void ExecuteCmds() {
-        CmdController.UpdateCommands(cmdArray);
+        CmdController.UpdateCommands(radioArray);
     }
 
     // Update is called once per frame
