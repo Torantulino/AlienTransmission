@@ -21,6 +21,11 @@ public class CommandController : MonoBehaviour
     {
         var commandText = commandField.text;
 
+        HandleCommand(commandText);
+    }
+
+    public void HandleCommand(string commandText)
+    {
         var splitText = commandText.Split(' ');
 
         if (splitText.Length != 3)
@@ -41,13 +46,13 @@ public class CommandController : MonoBehaviour
         }
 
         //Otherwise add action to soldier
-        //var commands = Soldier.GetComponent<SoldierCommands>();
-        //var movementCommand = new MovementCommand()
-        //{
-        //    Destination = new Vector3(170f, 0.5f, 1456.52f)
-        //};
+        var commands = solider.GetComponent<SoldierCommands>();
+        var movementCommand = new MovementCommand()
+        {
+            Destination = new Vector3(180f, 0.5f, 1456.52f)
+        };
 
-        //commands.CommandList.Add(movementCommand);
+        commands.CommandList.Add(movementCommand);
     }
 
     private void HandleInvalid(InputField commandField)
@@ -55,7 +60,7 @@ public class CommandController : MonoBehaviour
         commandField.text = "ERROR: INVALID COMMAND";
         commandField.GetComponent<Text>().color = Color.red;
 
-        //commandField.text = Color.red;
+        //commandField.text = Color.red;s
     }
 }
 

@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 114512412834617442}
   - component: {fileID: 114127181860764162}
   m_Layer: 5
-  m_Name: txtRadioB1
+  m_Name: txtRadioC1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 114984204175052230}
   - component: {fileID: 114787127433986358}
   m_Layer: 5
-  m_Name: txtRadioB2
+  m_Name: txtRadioC2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 114557382331100444}
   - component: {fileID: 114239106685912082}
   m_Layer: 5
-  m_Name: txtRadioB3
+  m_Name: txtRadioC3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -228,7 +228,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SoldierList: []
-  CommandField: {fileID: 0}
 --- !u!114 &114221201624785032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -300,7 +299,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ALPHA
+  m_Text: CHARLIE
 --- !u!114 &114512412834617442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -597,7 +596,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 10, y: -10}
+  m_AnchoredPosition: {x: 10, y: -293}
   m_SizeDelta: {x: 230, y: 131.5}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224143414808470684
@@ -611,7 +610,7 @@ RectTransform:
   m_LocalScale: {x: 0.9999933, y: 0.9999933, z: 0.9999933}
   m_Children: []
   m_Father: {fileID: 224968847473309712}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -665,7 +664,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224968847473309712}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -682,8 +681,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 224905143816512854}
   - {fileID: 224143414808470684}
+  - {fileID: 224905143816512854}
   - {fileID: 224691244927866422}
   m_Father: {fileID: 224136119773686692}
   m_RootOrder: 1
