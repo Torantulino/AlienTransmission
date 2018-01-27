@@ -23,15 +23,16 @@ public class MapAnnotator : MonoBehaviour
     void OnGUI()
     {
 		Vector2 localCoord;
+		AOCam.aspect = panelRect.rect.width / panelRect.rect.height;
+
         if (Input.GetMouseButtonDown(0))
         {
 			if (RectTransformUtility.ScreenPointToLocalPointInRectangle(panelRect, Input.mousePosition, null, out localCoord))
             {
-				AOCam.aspect = panelRect.rect.width / panelRect.rect.height;
 				localCoord += panelRect.rect.size / 2;
-				float x = localCoord.x * AOCam.pixelRect.width / panelRect.rect.width;
-				float y = localCoord.y * AOCam.pixelRect.height / panelRect.rect.height;
-				Ray worldRay = AOCam.ScreenPointToRay(new Vector2(x, y));
+				float camX = localCoord.x * AOCam.pixelRect.width / panelRect.rect.width;
+				float camY = localCoord.y * AOCam.pixelRect.height / panelRect.rect.height;
+				Ray worldRay = AOCam.ScreenPointToRay(new Vector2(camX, camY));	
 				Vector3 worldPoint = worldRay.GetPoint(5);
 
 				Debug.Log(worldPoint);
