@@ -9,29 +9,18 @@ public class CommandController : MonoBehaviour
 {
     public List<GameObject> SoldierList;
 
-    private InputField commandField;
-
-
-    public void Start()
-    {
-        commandField = GetComponent<InputField>();
-        commandField.onEndEdit.AddListener(delegate { SubmitCommand(); });
-    }
-
-    public void SubmitCommand()
-    {
-        var commandText = commandField.text;
-
-        HandleCommand(commandText);
-    }
-
     public void UpdateCommands(string[,] cmdArray)
     {
         for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < 4; j++)
             {
-                HandleCommand(cmdArray[i,j]);
+                var value = cmdArray[j, i];
+
+                if (!string.IsNullOrEmpty(value))
+                {
+                    HandleCommand(cmdArray[j, i]);
+                }
             }
         }
     }
@@ -40,22 +29,14 @@ public class CommandController : MonoBehaviour
     {
         var splitText = commandText.Split(' ');
 
-        if (splitText.Length != 3)
-            HandleInvalid(commandField);
-
         var unitName = splitText[0];
         var mainCommand = splitText[1];
-        var commandInfo = splitText[2];
+        var commandInfo = "";
+
+        if (splitText.Count() > 2)
+            commandInfo = splitText[2];
 
         var solider = SoldierList.FirstOrDefault(x => x.name.ToUpper() == unitName);
-
-        if (solider == null)
-            HandleInvalid(commandField);
-
-        if (!Commands.IsValidCommand(mainCommand))
-        {
-            HandleInvalid(commandField);
-        }
 
         //Otherwise add action to soldier
         var commands = solider.GetComponent<SoldierCommands>();
@@ -73,13 +54,11 @@ public class CommandController : MonoBehaviour
         {
             var faceCommand = new FaceCommand()
             {
-                //Destination = new Vector3(180f, 0.5f, 1456.52f)
+                Target = new Vector3(190f, 0.5f, 1400f)
             };
 
             commands.CommandList.Add(faceCommand);
-
         }
-
     }
 
     private void HandleInvalid(InputField commandField)

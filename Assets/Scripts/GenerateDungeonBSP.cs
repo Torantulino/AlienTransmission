@@ -100,7 +100,7 @@ public class GenerateDungeonBSP : MonoBehaviour
 
             if (tiles[x, y] == false) {
                 GameObject p =  GameObject.Instantiate(alien);
-                p.transform.position = new Vector3(x - dimension / 2, 0, y - dimension / 2);
+                p.transform.position = new Vector3(x - dimension / 2, 2, y - dimension / 2);
             }
 
         }
@@ -187,7 +187,7 @@ public class GenerateDungeonBSP : MonoBehaviour
 
         //carve an x corridor
 
-        if ((Random.Range(0, 3) % 2 != 0)){
+        if ((Random.Range(0, 3) % 3 != 0)){
 
             if (rect.x >= 1)
             {
@@ -203,7 +203,7 @@ public class GenerateDungeonBSP : MonoBehaviour
 
 
 
-        if ((Random.Range(0, 3) % 2 != 0)){
+        if ((Random.Range(0, 3) % 3 != 0)){
 
             if (rect.x + rect.width < dimension)
             {
@@ -220,7 +220,7 @@ public class GenerateDungeonBSP : MonoBehaviour
             }
         }
 
-        if ((Random.Range(0,3) % 2 != 0)){
+        if ((Random.Range(0,3) % 3 != 0)){
 
             int corridorX = Random.Range(rect.x + 1, rect.x + rect.width - 2);
             //carve a y corridor
@@ -237,7 +237,7 @@ public class GenerateDungeonBSP : MonoBehaviour
 
         }
 
-        if ((Random.Range(0, 3) % 2 != 0)){
+        if ((Random.Range(0, 3) % 3 != 0)){
 
             int corridorX = Random.Range(rect.x + 1, rect.x + rect.width - 2);
             if (rect.y + rect.height < dimension)
@@ -260,10 +260,5 @@ public class GenerateDungeonBSP : MonoBehaviour
     }
 
 
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    
 }
