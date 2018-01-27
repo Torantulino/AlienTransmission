@@ -23,11 +23,15 @@ public class MapAnnotator : MonoBehaviour
 
     public void PlaceIcon()
     {
-        Vector2 localCoord;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(panelRect, Input.mousePosition, null, out localCoord);
+        if (selectedIcon != null)
+        {
+            Vector2 localCoord;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(panelRect, Input.mousePosition, null,
+                out localCoord);
 
-        placedIcon = Instantiate(selectedIcon, localCoord, Quaternion.identity, this.transform);
-        placedIcon.transform.localPosition = localCoord;
+            placedIcon = Instantiate(selectedIcon, localCoord, Quaternion.identity, this.transform);
+            placedIcon.transform.localPosition = localCoord;
+        }
     }
 
     void OnGUI()
