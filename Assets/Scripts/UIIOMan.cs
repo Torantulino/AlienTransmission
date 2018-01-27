@@ -328,4 +328,20 @@ public class UIIOMan : MonoBehaviour
 			i++;
 		}
 	}
+
+    public void ClearOrders()
+    {
+        foreach(var element in radioArray)
+        {
+            element.GetComponent<Text>().text = string.Empty;
+        }
+
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < numOrder - 1; j++)
+            {
+                cmdArray[i, j] = "";
+            }
+        }
+    }
 }

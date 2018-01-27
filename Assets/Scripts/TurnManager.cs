@@ -14,6 +14,8 @@ public class TurnManager : MonoBehaviour
     public SoldierCommands[] SoldierList;
     public AlienAI[] AlienList;
 
+    public UIIOMan uiManager;
+
     private Turn currentTurn;
     private bool turnSetup;
 
@@ -38,10 +40,10 @@ public class TurnManager : MonoBehaviour
 
         var nextTurn = Turn.PlayerPlanning;
 
-        EnterTurn(nextTurn);
+        EnterTurn(nextTurn, true);
     }
 
-    public void EnterTurn(Turn turn)
+    public void EnterTurn(Turn turn, bool updateUi = false)
     {
         currentTurn = turn;
         turnSetup = false;
@@ -49,7 +51,7 @@ public class TurnManager : MonoBehaviour
         switch (currentTurn)
         {
             case Turn.PlayerPlanning:
-                EnterPlanningMode();
+                EnterPlanningMode(updateUi);
                 break;
             case Turn.PlayerMoving:
                 EnterMovingMode();
@@ -57,7 +59,7 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    private void EnterPlanningMode()
+    private void EnterPlanningMode(bool updateUi)
     {
         TransmitButton.interactable = true;
 
@@ -69,6 +71,16 @@ public class TurnManager : MonoBehaviour
         foreach (var alien in AlienList)
         {
             alien.canAct = false;
+        }
+
+        if (updateUi)
+        {
+            uiManager.ClearOrders();
+
+            foreach (var soldier in SoldierList)
+            {
+                soldier.GetComponent<SoldierReport>().Report();
+            }
         }
     }
 
