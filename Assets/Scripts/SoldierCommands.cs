@@ -89,7 +89,7 @@ public class SoldierCommands : MonoBehaviour
 
     private IEnumerator HandleMovementCommand(MovementCommand command)
     {
-        soldierAnimator.SetBool(0, true);
+        soldierAnimator.SetBool("isMoving", true);
         agent.destination = command.Destination;
 
         if (agent.pathPending)
@@ -101,11 +101,12 @@ public class SoldierCommands : MonoBehaviour
         }
 
         command.Completed = true;
-        soldierAnimator.SetBool(0, false);
+        soldierAnimator.SetBool("isMoving", false);
     }
 
     private IEnumerator HandleFaceCommand(FaceCommand command)
     {
+        soldierAnimator.SetBool("isMoving", true);
         float angle = Vector3.Angle(command.Target, transform.forward);
         var desiredRotQ = Quaternion.Euler(0, angle, 0);
         transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotQ, Time.deltaTime * Damping);
@@ -116,12 +117,18 @@ public class SoldierCommands : MonoBehaviour
         }
 
         command.Completed = true;
+        soldierAnimator.SetBool("isMoving", false);
     }
 
-    private void HandleEngage(AttackCommand command)
+    private IEnumerator HandleEngage(AttackCommand command)
     {
+        soldierAnimator.SetBool("isShooting", true);
         shoot.Fire();
+
+        yield return new WaitForSeconds(2);
+
         command.Completed = true;
+        soldierAnimator.SetBool("isShooting", false);
     }
 
 }
