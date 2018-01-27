@@ -20,7 +20,7 @@ public class SoldierCommands : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         CommandList = new List<ICommand>();
-        CanAction = true;
+        CanAction = false;
         shoot = GetComponent<Shoot>();
     }
 
