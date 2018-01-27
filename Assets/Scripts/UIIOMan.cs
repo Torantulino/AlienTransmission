@@ -116,7 +116,7 @@ public class UIIOMan : MonoBehaviour
             if (Input.GetKeyDown("b"))
             {
                 state = 1;
-                Csubject = "BETA";
+                Csubject = "BRAVO";
                 Cman = 1;
             }
             if (Input.GetKeyDown("c"))
@@ -205,7 +205,8 @@ public class UIIOMan : MonoBehaviour
                     yt = -1;
                     gridscript.xSelected = -1;
                     gridscript.ySelected = -1;
-                } else if (Cverb != "ENGAGE")
+                }
+                else if ((Cverb != "ENGAGE") && (((Cobject == "") && (c - 'a' > -1) && (c - 'z' < 1)) || ((Cobject!= "") && (c - '0' > -1) && (c - '9' < 1)) ))
                 {
                     Cobject += c;
                 }
@@ -253,8 +254,10 @@ public class UIIOMan : MonoBehaviour
         {
             ticker = 0;
             if (gridscript.xSelected != xt) gridscript.xSelected += Math.Sign(xt - gridscript.xSelected);
-           if (gridscript.ySelected != yt) gridscript.ySelected += Math.Sign(yt - gridscript.ySelected);
-        //    gridscript.ySelected = yt;
+            if (Math.Abs(gridscript.ySelected - yt) > 5) gridscript.ySelected += 5* Math.Sign(yt - gridscript.ySelected);
+            if (gridscript.ySelected != yt) gridscript.ySelected += Math.Sign(yt - gridscript.ySelected);
+            if (Math.Abs(gridscript.xSelected - xt) > 5) gridscript.xSelected += 5 * Math.Sign(xt - gridscript.xSelected);
+            //    gridscript.ySelected = yt;
             if (DOrder != CurrentOrder + "_")
             {
                 if ((DOrder.Length - 1) > CurrentOrder.Length)
