@@ -1745,13 +1745,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 534376515}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.5461863, y: -0, z: -0, w: 0.83766377}
+  m_LocalPosition: {x: -103, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 66.212006, y: 0, z: 0}
 --- !u!1 &547457049 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1203946880228210, guid: 89965f77e62bd6443b01c85b79c2b61c,
@@ -3291,6 +3291,11 @@ Prefab:
       propertyPath: soldierAnimator
       value: 
       objectReference: {fileID: 1741811387}
+    - target: {fileID: 23099864558711130, guid: 6482213da47386345b4ef3e2f6b30d3d,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6482213da47386345b4ef3e2f6b30d3d, type: 2}
   m_IsPrefabParent: 0
@@ -3735,6 +3740,22 @@ RectTransform:
   m_AnchoredPosition: {x: 51.05223, y: 129.7402}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1451589562 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1750642373131538, guid: 6482213da47386345b4ef3e2f6b30d3d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1232897734}
+--- !u!122 &1451589565
+Halo:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1451589562}
+  m_Enabled: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4278386432
+  m_Size: 5
 --- !u!1001 &1474137894
 Prefab:
   m_ObjectHideFlags: 0
