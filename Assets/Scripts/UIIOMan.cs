@@ -26,6 +26,9 @@ public class UIIOMan : MonoBehaviour
 
     public const int numOrder = 3;
 
+    private string DOrder = "";
+    private int ticker = 0;
+
     private GameObject[,] radioArray;
     private string[,] cmdArray; // array of commands for each soldier
     private string CurrentOrder;
@@ -73,29 +76,29 @@ public class UIIOMan : MonoBehaviour
     public void ExecuteCmds() {
         CmdController.UpdateCommands(cmdArray);
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
         int[] emptyslot;
         emptyslot = new int[4];
 
         //Recieve Intel ##Extract to relevet method##
-	    //string intel = "";
-	    //radioArray[0][0].GetComponent<InputField>().enabled = false;   //Disable InputField to allow text display.
-	    //radioArray[0][0].GetComponent<Text>().text = intel;            //Display text.
+        //string intel = "";
+        //radioArray[0][0].GetComponent<InputField>().enabled = false;   //Disable InputField to allow text display.
+        //radioArray[0][0].GetComponent<Text>().text = intel;            //Display text.
 
 
         // clear empty orders from the array
         for (int i = 0; i < 4; i++)
         {
-            emptyslot[i] = 99;
+            emptyslot[i] = numOrder-1;
             for (int j = 0; j < numOrder - 1; j++)
             {
-                if (cmdArray[i,j] == "")
+                if (cmdArray[i, j] == "")
                 {
                     emptyslot[i] = Math.Min(emptyslot[i], j);
-                    cmdArray[i,j] = cmdArray[i,j + 1];
-                    cmdArray[i,j + 1] = "";
+                    cmdArray[i, j] = cmdArray[i, j + 1];
+                    cmdArray[i, j + 1] = "";
                 }
             }
         }
@@ -127,6 +130,7 @@ public class UIIOMan : MonoBehaviour
             if (Input.GetKeyDown("backspace"))
             {
                 cmdArray[Cman, Lslot] = "";
+                if (Lslot > 0) Lslot = Lslot - 1;
             }
 
         }
@@ -191,6 +195,7 @@ public class UIIOMan : MonoBehaviour
                     Csubject = "";
                     Cverb = "";
                     Cobject = "";
+                    DOrder = "[TRANSMITTING]";
                     state = 0;
                 } else if (Cverb != "ENGAGE")
                 {
@@ -198,14 +203,41 @@ public class UIIOMan : MonoBehaviour
                 }
             }
         }
-
-        CurrentOrder = Csubject + " " + Cverb + " " + Cobject;
+        if (Cobject != "")
+        {
+            CurrentOrder = Csubject + " " + Cverb + " " + Cobject;
+        }
+        else if (Cverb != "")
+        {
+            CurrentOrder = Csubject + " " + Cverb;
+        }
+        else if (Csubject != "")
+        {
+            CurrentOrder = Csubject;
+        }
+        else CurrentOrder = "";
 
 
         //Update UI
+        ticker += 1;
+        if (ticker == 4)
+        {
+            ticker = 0;
+            if (DOrder != CurrentOrder + "_")
+            {
+                if ((DOrder.Length - 1) > CurrentOrder.Length)
+                {
+                    DOrder = DOrder.Substring(0, DOrder.Length - 2) + "_";
+                }
+                else
+                {
+                    DOrder = CurrentOrder.Substring(0, DOrder.Length) + "_";
+                }
 
+            }
+        }
         //Update Input
-	    terminalInput.GetComponent<Text>().text = CurrentOrder+"_";
+        terminalInput.GetComponent<Text>().text = DOrder;
 
         //Update Output
 	    for (int i = 0; i < 3;i++)
@@ -216,4 +248,5 @@ public class UIIOMan : MonoBehaviour
 	        }
 	    }
 	}
+
 }
