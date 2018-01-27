@@ -11,6 +11,7 @@ public class CommandController : MonoBehaviour
 
     private InputField commandField;
 
+
     public void Start()
     {
         commandField = GetComponent<InputField>();
@@ -22,6 +23,17 @@ public class CommandController : MonoBehaviour
         var commandText = commandField.text;
 
         HandleCommand(commandText);
+    }
+
+    public void UpdateCommands(string[,] cmdArray)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                HandleCommand(cmdArray[i,j]);
+            }
+        }
     }
 
     public void HandleCommand(string commandText)
