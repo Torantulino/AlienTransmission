@@ -37,6 +37,8 @@ public class SoldierCommands : MonoBehaviour
     private void HandleMovemenCommand(MovementCommand command)
     {
         agent.destination = command.Destination;
+        CanAction = false;
     }
+
 }
 
