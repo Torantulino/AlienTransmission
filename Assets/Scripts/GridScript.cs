@@ -23,8 +23,8 @@ public class GridScript : MonoBehaviour
     public Color mainColor = new Color(0f, 1f, 0f, 1f);
 	public Color selectColor = new Color(1f, 1f, 1f, 0.5f);
 
-	public int xSelected;
-	public int ySelected;
+	public int xSelected = -1;
+	public int ySelected = -1;
 
 	void Start() {
 		cam = GetComponent<Camera>();
