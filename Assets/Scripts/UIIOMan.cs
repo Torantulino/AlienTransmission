@@ -51,6 +51,7 @@ public class script : MonoBehaviour
 	    radioArray[0][3] = deltaRad1;
 	    radioArray[1][3] = deltaRad2;
 	    radioArray[2][3] = deltaRad3;
+
         cmdArray = new string[4, numOrder];
         for (int i = 0; i < 4; i++)
         {
@@ -66,6 +67,7 @@ public class script : MonoBehaviour
 	// Update is called once per frame
 	void Update () {
         int[] emptyslot;
+        emptyslot = new int[4];
 
         //Recieve Intel ##Extract to relevet method##
 	    string intel = "";
