@@ -39,8 +39,6 @@ public class MapAnnotator : MonoBehaviour
 				float camY = localCoord.y * AOCam.pixelRect.height / panelRect.rect.height;
 				Ray worldRay = AOCam.ScreenPointToRay(new Vector2(camX, camY));	
 				Vector3 worldPoint = worldRay.GetPoint(5);
-
-				Debug.Log(worldPoint);
             }
             PlaceIcon((Input.mousePosition));
         }

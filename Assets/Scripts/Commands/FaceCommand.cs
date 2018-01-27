@@ -14,5 +14,7 @@ public class FaceCommand : ICommand
         }
     }
 
-    public DirectionEnum Direction { get; set; }
+    public bool Completed { get; set; }
+
+    public Vector3 Target { get; set; }
 }

@@ -14,5 +14,7 @@ public class MovementCommand : ICommand
         }
     }
 
+    public bool Completed { get; set; }
+
     public Vector3 Destination { get; set; }
 }

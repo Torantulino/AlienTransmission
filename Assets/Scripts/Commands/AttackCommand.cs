@@ -13,4 +13,6 @@ public class AttackCommand : ICommand
             return CommandEnum.Attack;
         }
     }
+
+    public bool Completed { get; set; }
 }

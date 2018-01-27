@@ -61,7 +61,6 @@ public class GridScript : MonoBehaviour
 	}
 
 	public Vector3 GridCoordstoWorld(Vector2Int gridCoord) {
-		Debug.Log(gridCoord);
 		float x = gridCoord.x * largeStep - cam.orthographicSize * cam.aspect + largeStep / 2 + 0.5f;
 		float z = gridCoord.y * largeStep - cam.orthographicSize + largeStep / 2 + 0.5f;
 
