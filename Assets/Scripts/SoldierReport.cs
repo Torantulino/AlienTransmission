@@ -42,7 +42,11 @@ public class SoldierReport : MonoBehaviour {
 				Debug.DrawLine(transform.position, transform.position + rayDir * viewDistance, Color.red);
 				var interesting = hit.collider.GetComponent<Interesting>();
 				if (interesting) {
-					seen.Add(interesting);
+                    var health = hit.collider.GetComponent<Health>();
+                    if (health != null && !health.isDead)
+                    {
+                        seen.Add(interesting);
+                    }
 				}
 			} else {
 				Debug.DrawLine(transform.position, transform.position + rayDir * viewDistance);
