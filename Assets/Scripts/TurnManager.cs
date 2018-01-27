@@ -59,7 +59,7 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    private void EnterPlanningMode(bool updateUi)
+    private void EnterPlanningMode(bool endTurn)
     {
         TransmitButton.interactable = true;
 
@@ -73,13 +73,22 @@ public class TurnManager : MonoBehaviour
             alien.canAct = false;
         }
 
-        if (updateUi)
+        if (endTurn)
         {
             uiManager.ClearOrders();
 
             foreach (var soldier in SoldierList)
             {
                 soldier.GetComponent<SoldierReport>().Report();
+            }
+
+            foreach(var alien in AlienList)
+            {
+                if (alien.GetComponent<Health>().isDead)
+                {
+                    //Need to show the corpse - we could render a sprite at the same position rather than changing the layer
+                    alien.gameObject.layer = 0;
+                }
             }
         }
     }

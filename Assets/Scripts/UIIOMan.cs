@@ -70,6 +70,7 @@ public class UIIOMan : MonoBehaviour
 	    radioArray[1,3] = deltaRad2;
 	    radioArray[2,3] = deltaRad3;
     
+        
 
         cmdArray = new string[4, numOrder];
         for (int i = 0; i < 4; i++)
