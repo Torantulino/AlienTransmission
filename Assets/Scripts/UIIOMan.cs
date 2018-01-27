@@ -21,7 +21,8 @@ public class UIIOMan : MonoBehaviour
     public GameObject deltaRad2;
     public GameObject deltaRad3;
     public GameObject terminalInput;
-
+    public int highlightX = -1;
+    public int highlightY = -1;
     public CommandController CmdController;
 
     public const int numOrder = 3;
@@ -39,6 +40,10 @@ public class UIIOMan : MonoBehaviour
     private string Lsubject = "ALPHA";
     private int Cman = 0;
     private int Lslot = 0;
+    private int xt = -1;
+    private int yt = -1;
+    private GameObject gridcam;
+    private GridScript gridscript;
     // Use this for initialization
     void Start () {
         //Use this to access text: alphaRad1.InputField.text
@@ -81,7 +86,8 @@ public class UIIOMan : MonoBehaviour
     void Update() {
         int[] emptyslot;
         emptyslot = new int[4];
-
+        GameObject gridcam = GameObject.Find("AOCamera");
+        GridScript gridscript = gridcam.GetComponent<GridScript>();
         //Recieve Intel ##Extract to relevet method##
         //string intel = "";
         //radioArray[0][0].GetComponent<InputField>().enabled = false;   //Disable InputField to allow text display.
@@ -197,11 +203,36 @@ public class UIIOMan : MonoBehaviour
                     Cobject = "";
                     DOrder = "[TRANSMITTING]";
                     state = 0;
+                    xt = -1;
+                    yt = -1;
+                    gridscript.xSelected = -1;
+                    gridscript.ySelected = -1;
                 } else if (Cverb != "ENGAGE")
                 {
                     Cobject += c;
                 }
             }
+            /*
+            if (Csubject.Length > 0)
+            {
+               xt = Csubject.ToUpper().ToCharArray()[0] - 'A';
+                //int y = int.Parse(gridCoord.Substring(1)) - 1;
+                //if (gridscript.xSelected < xt) gridscript.xSelected += 1;
+            } else
+            {
+                xt = -1;
+            }
+            if (Csubject.Length > 1)
+            {
+              yt = int.Parse(Csubject.Substring(1)) - 1;
+                //int y = int.Parse(gridCoord.Substring(1)) - 1;
+                //if (gridscript.ySelected < yt) gridscript.ySelected += 1;
+            } else
+            {
+                yt = -1;
+            }
+            */
+
         }
         if (Cobject != "")
         {
@@ -223,6 +254,9 @@ public class UIIOMan : MonoBehaviour
         if (ticker == 4)
         {
             ticker = 0;
+        //    if (gridscript.xSelected != xt) gridscript.xSelected += Math.Sign(xt - gridscript.xSelected);
+         //   if (gridscript.ySelected != yt) gridscript.ySelected += Math.Sign(yt - gridscript.ySelected);
+        //    gridscript.ySelected = yt;
             if (DOrder != CurrentOrder + "_")
             {
                 if ((DOrder.Length - 1) > CurrentOrder.Length)
