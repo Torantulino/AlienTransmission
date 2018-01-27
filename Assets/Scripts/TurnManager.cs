@@ -7,8 +7,7 @@ using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviour
 {
-    public float PlayerTurnTime = 20f;
-    public float AlienTurnTime = 10f;
+    public float TurnTime = 5f;
 
     public Button TransmitButton;
 
@@ -25,20 +24,9 @@ public class TurnManager : MonoBehaviour
 
     private void Update()
     {
-        if ((currentTurn == Turn.PlayerMoving || currentTurn == Turn.Alien) && !turnSetup)
+        if ((currentTurn == Turn.PlayerMoving) && !turnSetup)
         {
-            float timeToWait = 0f;
-
-            if (currentTurn == Turn.PlayerMoving)
-            {
-                timeToWait = PlayerTurnTime;
-            }
-            else
-            {
-                timeToWait = AlienTurnTime;
-            }
-
-            StartCoroutine(StartTurn(timeToWait));
+            StartCoroutine(StartTurn(TurnTime));
         }
     }
 
@@ -48,16 +36,7 @@ public class TurnManager : MonoBehaviour
 
         yield return new WaitForSeconds(timeToWait);
 
-        var nextTurn = Turn.Empty;
-
-        if (currentTurn == Turn.PlayerMoving)
-        {
-            nextTurn = Turn.Alien;
-        }
-        else
-        {
-            nextTurn = Turn.PlayerPlanning;
-        }
+        var nextTurn = Turn.PlayerPlanning;
 
         EnterTurn(nextTurn);
     }
@@ -73,10 +52,7 @@ public class TurnManager : MonoBehaviour
                 EnterPlanningMode();
                 break;
             case Turn.PlayerMoving:
-                EnterPlayerMovingMode();
-                break;
-            case Turn.Alien:
-                EnterAlienMovingMode();
+                EnterMovingMode();
                 break;
         }
     }
@@ -84,28 +60,25 @@ public class TurnManager : MonoBehaviour
     private void EnterPlanningMode()
     {
         TransmitButton.interactable = true;
-        
-        foreach(var alien in AlienList)
+
+        foreach (var soldier in SoldierList)
         {
-            alien.canAct = true;
+            soldier.EndCommands();
+        }
+
+        foreach (var alien in AlienList)
+        {
+            alien.canAct = false;
         }
     }
 
-    private void EnterPlayerMovingMode()
+    private void EnterMovingMode()
     {
         TransmitButton.interactable = false;
 
         foreach (var soldier in SoldierList)
         {
             soldier.EnableActions();
-        }
-    }
-
-    private void EnterAlienMovingMode()
-    {
-        foreach (var soldier in SoldierList)
-        {
-            soldier.EndCommands();
         }
 
         foreach (var alien in AlienList)
