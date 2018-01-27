@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114875192760258874}
   - component: {fileID: 114304646108163818}
   - component: {fileID: 114592667929807760}
+  - component: {fileID: 114407777012362590}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Untagged
@@ -39,8 +40,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1859916745765550}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 185.11688, y: 0.5, z: 1462.4523}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.93, y: 0.93, z: -5.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -101,6 +102,19 @@ MonoBehaviour:
   numRays: 40
   fieldOfView: 90
   viewDistance: 10
+  additionalReportChance: 0.5
+  maxReports: 3
+--- !u!114 &114407777012362590
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1859916745765550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f75bd38e8b59f74458ef745454583338, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114592667929807760
 MonoBehaviour:
   m_ObjectHideFlags: 1
