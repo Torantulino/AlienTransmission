@@ -25,7 +25,10 @@ public class SoldierReport : MonoBehaviour {
 	}
 
 	public List<string> Report() {
-		HashSet<Interesting> seen = new HashSet<Interesting>();
+        int nlen = 0;
+        int pos;
+        string tmptxt;
+        HashSet<Interesting> seen = new HashSet<Interesting>();
 
 		for (int i = 0; i < numRays; i++) {
 			float offset = (i - (numRays / 2)) / (float)numRays;
@@ -56,7 +59,7 @@ public class SoldierReport : MonoBehaviour {
 
 		var reports = new List<string>();
 
-		foreach (var count in counts) {
+        foreach (var count in counts) {
 			if (reports.Count > 0) {
 				if (Random.value < additionalReportChance || reports.Count >= maxReports) {
 					break;
@@ -64,10 +67,49 @@ public class SoldierReport : MonoBehaviour {
 			}
 			if (count.Count == 1) {
 				string gridPos = grid.CoordsToGridString(grid.WorldCoordsToGrid(count.FirstPos));
-				reports.Add(transform.name + " saw a " + count.Type + " at " + gridPos);
+				tmptxt = transform.name + " saw a " + count.Type + " at " + gridPos;
 			} else {
-				reports.Add(transform.name + " saw " + count.Count + " " + count.Type);
+				tmptxt = transform.name + " saw " + count.Count + " " + count.Type;
 			}
+
+            string[] sn1 = { "&", "$", "?", "#", "!", "@" };
+            string[] sn3 = { "???", "#$1", "***" };
+            string[] sn5 = { "<static>", "*HISS*", "<crackle>" };
+            string noise = "";
+            int ierr;
+            ierr = Random.Range(-1, tmptxt.Length * 2 / 3);
+            while (ierr > 0)
+            {
+                ierr -= 1;
+                nlen = 1;
+                noise = sn1[Random.Range(0, 6)];
+                pos = Random.Range(0, tmptxt.Length - nlen);
+                tmptxt = tmptxt.Substring(0, pos) + noise + tmptxt.Substring(pos + nlen, tmptxt.Length - pos - nlen);
+
+            }
+            ierr = Random.Range(-1, tmptxt.Length / 12);
+            while (ierr > 0)
+            {
+                ierr -= 1;
+                nlen = 3;
+                noise = sn3[Random.Range(0, 3)];
+                pos = Random.Range(0, tmptxt.Length - nlen);
+                tmptxt = tmptxt.Substring(0, pos) + noise + tmptxt.Substring(pos + nlen, tmptxt.Length - pos - nlen);
+
+            }
+            ierr = Random.Range(-1, tmptxt.Length / 20);
+            while (ierr > 0)
+            {
+                if (Random.value < 0.5) break;
+                ierr -= 1;
+                nlen = 6;
+                noise = sn5[Random.Range(0, 3)];
+                pos = Random.Range(0, tmptxt.Length - nlen);
+                tmptxt = tmptxt.Substring(0, pos) + noise + tmptxt.Substring(pos + nlen, tmptxt.Length - pos - nlen);
+            }
+
+
+            reports.Add(tmptxt);
 		}
 
 		uiioMan.Report(reports, GetComponent<SoldierInfo>().name);
