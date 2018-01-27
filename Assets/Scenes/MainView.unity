@@ -551,6 +551,11 @@ Prefab:
       propertyPath: m_Name
       value: Alien (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 114763017341823502, guid: 49c3aa0b20438aa4a86578a668d4644b,
+        type: 2}
+      propertyPath: canAct
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 49c3aa0b20438aa4a86578a668d4644b, type: 2}
   m_IsPrefabParent: 0
