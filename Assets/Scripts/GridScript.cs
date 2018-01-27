@@ -21,7 +21,10 @@ public class GridScript : MonoBehaviour
     private Material lineMaterial;
 
     public Color mainColor = new Color(0f, 1f, 0f, 1f);
-    public Color subColor = new Color(0f, 0.5f, 0f, 1f);
+	public Color selectColor = new Color(1f, 1f, 1f, 0.5f);
+
+	public int xSelected;
+	public int ySelected;
 
 	void Start() {
 		cam = GetComponent<Camera>();
@@ -87,5 +90,27 @@ public class GridScript : MonoBehaviour
 		GL.Vertex3(startX + gridSizeX, startY, startZ + gridSizeZ);
 
         GL.End();
+
+		if (xSelected > -1) {
+			GL.Begin(GL.QUADS);
+			GL.Color(selectColor);
+
+			GL.Vertex3(startX + xSelected * largeStep, startY, startZ);
+			GL.Vertex3(startX + xSelected * largeStep, startY, startZ + gridSizeZ);
+			GL.Vertex3(startX + (xSelected + 1) * largeStep, startY, startZ + gridSizeZ);
+			GL.Vertex3(startX + (xSelected + 1) * largeStep, startY, startZ);
+			GL.End();
+		}
+
+		if (ySelected > -1) {
+			GL.Begin(GL.QUADS);
+			GL.Color(selectColor);
+
+			GL.Vertex3(startX, startY, startZ + ySelected * largeStep);
+			GL.Vertex3(startX + gridSizeX, startY, startZ + ySelected * largeStep);
+			GL.Vertex3(startX + gridSizeX, startY, startZ + (ySelected + 1) * largeStep);
+			GL.Vertex3(startX, startY, startZ + (ySelected + 1) * largeStep);
+			GL.End();
+		}
     }
 }
