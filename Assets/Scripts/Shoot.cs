@@ -11,9 +11,6 @@ public class Shoot : MonoBehaviour {
 	}
 
 	void Update() {
-		if (Input.anyKeyDown) {
-			Fire();
-		}
 	}
 	
 	public void Fire() {
