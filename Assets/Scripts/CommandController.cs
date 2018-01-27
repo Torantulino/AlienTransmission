@@ -59,18 +59,26 @@ public class CommandController : MonoBehaviour
 
         //Otherwise add action to soldier
         var commands = solider.GetComponent<SoldierCommands>();
-        var movementCommand = new MovementCommand()
-        {
-            Destination = new Vector3(180f, 0.5f, 1456.52f)
-        };
 
-        var faceCommand = new FaceCommand()
+        if (mainCommand == Commands.MoveCommand)
         {
-            //Destination = new Vector3(180f, 0.5f, 1456.52f)
-        };
+            var movementCommand = new MovementCommand()
+            {
+                Destination = new Vector3(180f, 0.5f, 1456.52f)
+            };
 
-        commands.CommandList.Add(movementCommand);
-        commands.CommandList.Add(faceCommand);
+            commands.CommandList.Add(movementCommand);
+        }
+        else
+        {
+            var faceCommand = new FaceCommand()
+            {
+                //Destination = new Vector3(180f, 0.5f, 1456.52f)
+            };
+
+            commands.CommandList.Add(faceCommand);
+
+        }
 
     }
 
