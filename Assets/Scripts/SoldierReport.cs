@@ -11,9 +11,11 @@ public class SoldierReport : MonoBehaviour {
 	public float maxReports = 3;
 
 	UIIOMan uiioMan;
+	GridScript grid;
 
 	void Start() {
 		uiioMan = GameObject.FindObjectOfType<UIIOMan>();
+		grid = GameObject.FindObjectOfType<GridScript>();
 	}
 
 	void Update() {
@@ -47,7 +49,8 @@ public class SoldierReport : MonoBehaviour {
 		var counts = seen.GroupBy(item => item.Type).Select(group => new {
 			Type = group.Key,
 			Count = group.Count(),
-			Priority = group.ElementAt(0).priority
+			Priority = group.ElementAt(0).priority,
+			FirstPos = group.ElementAt(0).transform.position
 		});
 		counts = counts.OrderByDescending(item => item.Priority);
 
@@ -59,7 +62,12 @@ public class SoldierReport : MonoBehaviour {
 					break;
 				}
 			}
-			reports.Add(transform.name + " saw " + count.Count + " " + count.Type);
+			if (count.Count == 1) {
+				string gridPos = grid.CoordsToGridString(grid.WorldCoordsToGrid(count.FirstPos));
+				reports.Add(transform.name + " saw a " + count.Type + " at " + gridPos);
+			} else {
+				reports.Add(transform.name + " saw " + count.Count + " " + count.Type);
+			}
 		}
 
 		uiioMan.Report(reports, GetComponent<SoldierInfo>().name);
