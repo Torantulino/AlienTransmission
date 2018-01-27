@@ -64,7 +64,14 @@ public class CommandController : MonoBehaviour
             Destination = new Vector3(180f, 0.5f, 1456.52f)
         };
 
+        var faceCommand = new FaceCommand()
+        {
+            //Destination = new Vector3(180f, 0.5f, 1456.52f)
+        };
+
         commands.CommandList.Add(movementCommand);
+        commands.CommandList.Add(faceCommand);
+
     }
 
     private void HandleInvalid(InputField commandField)
