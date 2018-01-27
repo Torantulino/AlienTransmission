@@ -91,7 +91,7 @@ public class UIIOMan : MonoBehaviour
         // clear empty orders from the array
         for (int i = 0; i < 4; i++)
         {
-            emptyslot[i] = 99;
+            emptyslot[i] = numOrder-1;
             for (int j = 0; j < numOrder - 1; j++)
             {
                 if (cmdArray[i, j] == "")
@@ -130,6 +130,7 @@ public class UIIOMan : MonoBehaviour
             if (Input.GetKeyDown("backspace"))
             {
                 cmdArray[Cman, Lslot] = "";
+                if (Lslot > 0) Lslot = Lslot - 1;
             }
 
         }
@@ -194,7 +195,7 @@ public class UIIOMan : MonoBehaviour
                     Csubject = "";
                     Cverb = "";
                     Cobject = "";
-                    DOrder = "[SENT]";
+                    DOrder = "[TRANSMITTING]";
                     state = 0;
                 } else if (Cverb != "ENGAGE")
                 {
