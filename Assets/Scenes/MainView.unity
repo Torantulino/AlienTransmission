@@ -1930,6 +1930,18 @@ GameObject:
   m_PrefabParentObject: {fileID: 1997281666134922, guid: 89965f77e62bd6443b01c85b79c2b61c,
     type: 2}
   m_PrefabInternal: {fileID: 480444230}
+--- !u!114 &628560619 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114921475024492226, guid: b7adc7a788f64874faec6c11c30a9a74,
+    type: 2}
+  m_PrefabInternal: {fileID: 673473186}
+  m_Script: {fileID: 11500000, guid: 5b078e5b0bceab7498ec784985da2aef, type: 3}
+--- !u!114 &628560621 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114773996757149616, guid: b7adc7a788f64874faec6c11c30a9a74,
+    type: 2}
+  m_PrefabInternal: {fileID: 673473186}
+  m_Script: {fileID: 11500000, guid: 63f85c42e011bd445b6693f74d2ecdad, type: 3}
 --- !u!1 &647663760
 GameObject:
   m_ObjectHideFlags: 0
@@ -2229,6 +2241,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 761035183}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &769989804 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114766780853042094, guid: f26ae8b58d657bb42856c5155c1d17ad,
+    type: 2}
+  m_PrefabInternal: {fileID: 17888989}
+  m_Script: {fileID: 11500000, guid: 5b078e5b0bceab7498ec784985da2aef, type: 3}
+--- !u!114 &769989806 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114061127963892196, guid: f26ae8b58d657bb42856c5155c1d17ad,
+    type: 2}
+  m_PrefabInternal: {fileID: 17888989}
+  m_Script: {fileID: 11500000, guid: 63f85c42e011bd445b6693f74d2ecdad, type: 3}
 --- !u!114 &789070535 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114763017341823502, guid: 49c3aa0b20438aa4a86578a668d4644b,
@@ -3262,6 +3286,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114171773744145130, guid: 6482213da47386345b4ef3e2f6b30d3d,
+        type: 2}
+      propertyPath: soldierAnimator
+      value: 
+      objectReference: {fileID: 1741811387}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6482213da47386345b4ef3e2f6b30d3d, type: 2}
   m_IsPrefabParent: 0
@@ -3270,6 +3299,18 @@ Transform:
   m_PrefabParentObject: {fileID: 4954280028230258, guid: 6482213da47386345b4ef3e2f6b30d3d,
     type: 2}
   m_PrefabInternal: {fileID: 1232897734}
+--- !u!114 &1262200118 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114743932611513236, guid: 489181e1788b4564bb41326f85b0a81a,
+    type: 2}
+  m_PrefabInternal: {fileID: 522649632}
+  m_Script: {fileID: 11500000, guid: 5b078e5b0bceab7498ec784985da2aef, type: 3}
+--- !u!114 &1262200120 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114251620433005452, guid: 489181e1788b4564bb41326f85b0a81a,
+    type: 2}
+  m_PrefabInternal: {fileID: 522649632}
+  m_Script: {fileID: 11500000, guid: 63f85c42e011bd445b6693f74d2ecdad, type: 3}
 --- !u!114 &1276318819 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114763017341823502, guid: 49c3aa0b20438aa4a86578a668d4644b,
@@ -3675,7 +3716,7 @@ MonoBehaviour:
   deltaRad3: {fileID: 1681193961}
   terminalInput: {fileID: 347596723}
   CmdController: {fileID: 1582892909}
-  TurnManager: {fileID: 0}
+  TurnManager: {fileID: 1582892911}
 --- !u!224 &1433858619
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4143,10 +4184,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SoldierList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2058111218}
+  - {fileID: 1262200118}
+  - {fileID: 628560619}
+  - {fileID: 769989804}
   gridScript: {fileID: 911406193}
 --- !u!4 &1582892910
 Transform:
@@ -4176,10 +4217,10 @@ MonoBehaviour:
   AlienTurnTime: 5
   TransmitButton: {fileID: 1373413235}
   SoldierList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2058111220}
+  - {fileID: 1262200120}
+  - {fileID: 628560621}
+  - {fileID: 769989806}
   AlienList:
   - {fileID: 2065707042}
   - {fileID: 789070535}
@@ -4690,6 +4731,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1734240852}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &1741811387 stripped
+Animator:
+  m_PrefabParentObject: {fileID: 95491700753344190, guid: 6482213da47386345b4ef3e2f6b30d3d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1232897734}
 --- !u!1001 &1745752770
 Prefab:
   m_ObjectHideFlags: 0
@@ -5651,6 +5697,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2026085184}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2058111218 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114106145826002276, guid: 6482213da47386345b4ef3e2f6b30d3d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1232897734}
+  m_Script: {fileID: 11500000, guid: 5b078e5b0bceab7498ec784985da2aef, type: 3}
+--- !u!114 &2058111220 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114171773744145130, guid: 6482213da47386345b4ef3e2f6b30d3d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1232897734}
+  m_Script: {fileID: 11500000, guid: 63f85c42e011bd445b6693f74d2ecdad, type: 3}
 --- !u!114 &2065707042 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114763017341823502, guid: 49c3aa0b20438aa4a86578a668d4644b,

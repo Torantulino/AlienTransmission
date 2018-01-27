@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4140394015558148}
   - component: {fileID: 212911206883144870}
+  - component: {fileID: 95553666616544378}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -120,6 +121,23 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1307161188650534}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &95553666616544378
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1055497482731706}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 30925c646f95a334aafa3a13ff319902, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114214777310181704
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -169,6 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damping: 1
+  soldierAnimator: {fileID: 95553666616544378}
 --- !u!114 &114921475024492226
 MonoBehaviour:
   m_ObjectHideFlags: 1
