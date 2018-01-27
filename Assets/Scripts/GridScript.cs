@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Text;
 
 public class GridScript : MonoBehaviour
 {
@@ -60,11 +61,25 @@ public class GridScript : MonoBehaviour
 		}
 	}
 
+	public string CoordsToGridString(Vector2Int coords) {
+		var sb = new StringBuilder();
+		sb.Append((char)(('A' + coords.x)));
+		sb.Append((coords.y + 1).ToString());
+		return sb.ToString();
+	}
+
 	public Vector3 GridCoordstoWorld(Vector2Int gridCoord) {
 		float x = gridCoord.x * largeStep - cam.orthographicSize * cam.aspect + largeStep / 2 + 0.5f;
 		float z = gridCoord.y * largeStep - cam.orthographicSize + largeStep / 2 + 0.5f;
 
 		return cam.transform.position + new Vector3(x, 0, z);
+	}
+
+	public Vector2Int WorldCoordsToGrid(Vector3 point) {
+		int x = (int) ((point.x + cam.orthographicSize * cam.aspect) / largeStep);
+		int y = (int) ((point.z + cam.orthographicSize) / largeStep);
+
+		return new Vector2Int(x, y);
 	}
 
     void OnPostRender()
