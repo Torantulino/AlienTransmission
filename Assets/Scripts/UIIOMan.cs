@@ -90,7 +90,7 @@ public class UIIOMan : MonoBehaviour
         //string intel = "";
         //radioArray[0][0].GetComponent<InputField>().enabled = false;   //Disable InputField to allow text display.
         //radioArray[0][0].GetComponent<Text>().text = intel;            //Display text.
-
+        gridscript.mainColor = new Color(0f, 1f, 0f, 0.1f);
 
         // clear empty orders from the array
         for (int i = 0; i < 4; i++)
@@ -178,6 +178,7 @@ public class UIIOMan : MonoBehaviour
             }
         } else if (state == 2)
         {
+            if (Cverb != "ENGAGE") gridscript.mainColor = new Color(0f, 1f, 0f, 0.7f);
             foreach (char c in Input.inputString)
             {
                 if (c == '\b') // has backspace/delete been pressed?
@@ -199,7 +200,7 @@ public class UIIOMan : MonoBehaviour
                     Csubject = "";
                     Cverb = "";
                     Cobject = "";
-                    DOrder = "[TRANSMITTING]";
+                    DOrder = "[DONE----]";
                     state = 0;
                     xt = -1;
                     yt = -1;

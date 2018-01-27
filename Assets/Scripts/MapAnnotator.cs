@@ -9,6 +9,7 @@ public class MapAnnotator : MonoBehaviour
 
     private GameObject selectedIcon;
     private GameObject targetedIcon;
+    private GameObject placedIcon;
     RectTransform panelRect;
 
 	void Start () {
@@ -20,9 +21,13 @@ public class MapAnnotator : MonoBehaviour
         selectedIcon = EventSystem.current.currentSelectedGameObject.transform.GetChild(0).gameObject;
     }
 
-    public void PlaceIcon(Vector2 pos)
+    public void PlaceIcon()
     {
-       //Instantiate(selectedIcon, new Vector3(2, 0, 0), Quaternion.identity);
+        Vector2 localCoord;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(panelRect, Input.mousePosition, null, out localCoord);
+
+        placedIcon = Instantiate(selectedIcon, localCoord, Quaternion.identity, this.transform);
+        placedIcon.transform.localPosition = localCoord;
     }
 
     void OnGUI()
@@ -42,7 +47,7 @@ public class MapAnnotator : MonoBehaviour
 
 				Debug.Log(worldPoint);
             }
-            PlaceIcon((Input.mousePosition));
+            
         }
     }
 

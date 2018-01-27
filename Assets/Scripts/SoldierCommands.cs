@@ -14,12 +14,14 @@ public class SoldierCommands : MonoBehaviour
     public bool CanAction { get; set; }
 
     private NavMeshAgent agent;
+    private Shoot shoot;
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         CommandList = new List<ICommand>();
         CanAction = true;
+        shoot = GetComponent<Shoot>();
     }
 
     private void Update()
@@ -50,6 +52,9 @@ public class SoldierCommands : MonoBehaviour
             case CommandEnum.FaceDirection:
                 yield return StartCoroutine(HandleFaceCommand((FaceCommand)currentCommand));
                 break;
+            case CommandEnum.Attack:
+                HandleEngage((AttackCommand)currentCommand);
+                break;
         }
     }
 
@@ -70,7 +75,9 @@ public class SoldierCommands : MonoBehaviour
     private IEnumerator HandleMovementCommand(MovementCommand command)
     {
         agent.destination = command.Destination;
-        float dist = agent.remainingDistance;
+
+        if (agent.pathPending)
+            yield return null;
 
         while (agent.remainingDistance != 0)
         {
@@ -91,6 +98,12 @@ public class SoldierCommands : MonoBehaviour
             yield return null;
         }
 
+        command.Completed = true;
+    }
+
+    private void HandleEngage(AttackCommand command)
+    {
+        shoot.Fire();
         command.Completed = true;
     }
 

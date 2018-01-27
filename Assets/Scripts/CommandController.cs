@@ -54,7 +54,12 @@ public class CommandController : MonoBehaviour
 
             commands.CommandList.Add(movementCommand);
         }
-        else
+        else if (mainCommand == Commands.EngageCommand)
+        {
+            var attackCommand = new AttackCommand();
+            commands.CommandList.Add(attackCommand);
+        }
+        else if (mainCommand == Commands.FaceCommand)
         {
             var destPos = gridScript.GridStringToCoords(commandInfo);
             var destination = gridScript.GridCoordstoWorld(destPos);
