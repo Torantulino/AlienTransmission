@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using UnityEngine;
@@ -15,17 +15,57 @@ public class TurnManager : MonoBehaviour
     public SoldierCommands[] SoldierList;
     public AlienAI[] AlienList;
 
-
     private Turn currentTurn;
+    private bool turnSetup;
 
     private void Start()
     {
         EnterTurn(Turn.PlayerPlanning);
     }
 
+    private void Update()
+    {
+        if ((currentTurn == Turn.PlayerMoving || currentTurn == Turn.Alien) && !turnSetup)
+        {
+            float timeToWait = 0f;
+
+            if (currentTurn == Turn.PlayerMoving)
+            {
+                timeToWait = PlayerTurnTime;
+            }
+            else
+            {
+                timeToWait = AlienTurnTime;
+            }
+
+            StartCoroutine(StartTurn(timeToWait));
+        }
+    }
+
+    private IEnumerator StartTurn(float timeToWait)
+    {
+        turnSetup = true;
+
+        yield return new WaitForSeconds(timeToWait);
+
+        var nextTurn = Turn.Empty;
+
+        if (currentTurn == Turn.PlayerMoving)
+        {
+            nextTurn = Turn.Alien;
+        }
+        else
+        {
+            nextTurn = Turn.PlayerPlanning;
+        }
+
+        EnterTurn(nextTurn);
+    }
+
     public void EnterTurn(Turn turn)
     {
         currentTurn = turn;
+        turnSetup = false;
 
         switch (currentTurn)
         {
@@ -47,7 +87,7 @@ public class TurnManager : MonoBehaviour
         
         foreach(var alien in AlienList)
         {
-            alien.canAct = false;
+            alien.canAct = true;
         }
     }
 
@@ -63,9 +103,14 @@ public class TurnManager : MonoBehaviour
 
     private void EnterAlienMovingMode()
     {
+        foreach (var soldier in SoldierList)
+        {
+            soldier.CanAction = false;
+        }
+
         foreach (var alien in AlienList)
         {
-            alien.canAct = false;
+            alien.canAct = true;
         }
     }
 }
