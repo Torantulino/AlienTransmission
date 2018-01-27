@@ -7,28 +7,33 @@ using UnityEngine.UI;
 
 public class CommandController : MonoBehaviour
 {
-    public GameObject Agent;
+    public List<GameObject> SoldierList;
 
-    public InputField[] CommandList;
+    private InputField commandField;
 
     public void Start()
     {
-        if (CommandList != null)
-        {
-            foreach(var command in CommandList)
-            {
-                command.onEndEdit.AddListener(delegate { SubmitCommand(command); });
-            }
-        }
+        commandField = GetComponent<InputField>();
+        commandField.onEndEdit.AddListener(delegate { SubmitCommand(); });
     }
 
-    public void SubmitCommand(InputField commandField)
+    public void SubmitCommand()
     {
         var commandText = commandField.text;
 
         var splitText = commandText.Split(' ');
 
-        var mainCommand = splitText[0];
+        if (splitText.Length != 3)
+            HandleInvalid(commandField);
+
+        var unitName = splitText[0];
+        var mainCommand = splitText[1];
+        var commandInfo = splitText[2];
+
+        var solider = SoldierList.FirstOrDefault(x => x.name.ToUpper() == unitName);
+
+        if (solider == null)
+            HandleInvalid(commandField);
 
         if (!Commands.IsValidCommand(mainCommand))
         {
@@ -36,7 +41,13 @@ public class CommandController : MonoBehaviour
         }
 
         //Otherwise add action to soldier
+        //var commands = Soldier.GetComponent<SoldierCommands>();
+        //var movementCommand = new MovementCommand()
+        //{
+        //    Destination = new Vector3(170f, 0.5f, 1456.52f)
+        //};
 
+        //commands.CommandList.Add(movementCommand);
     }
 
     private void HandleInvalid(InputField commandField)
