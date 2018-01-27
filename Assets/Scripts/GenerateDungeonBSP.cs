@@ -21,6 +21,12 @@ public class GenerateDungeonBSP : MonoBehaviour
 
     public GameObject pillar;
 
+    public GameObject alien;
+
+    public int minAlienTries = 30;
+
+    public int maxAlienTries = 100;
+
     // Use this for initialization
     void Start()
     {
@@ -79,12 +85,26 @@ public class GenerateDungeonBSP : MonoBehaviour
                 {
                     GameObject p = GameObject.Instantiate(pillar);
                     p.transform.position = new Vector3(i - dimension / 2, 0, j - dimension / 2);
-
-
                 }
             }
 
         }
+
+
+        //spawn ayys
+        int tries = Random.Range(minAlienTries, maxAlienTries);
+        for (int i = tries; i > 0; i--) {
+            //try to place an ayy
+            int x = Random.Range(1, dimension - 1);
+            int y = Random.Range(1, dimension - 1);
+
+            if (tiles[x, y] == false) {
+                GameObject p =  GameObject.Instantiate(alien);
+                p.transform.position = new Vector3(x - dimension / 2, 0, y - dimension / 2);
+            }
+
+        }
+    
 
 
 
