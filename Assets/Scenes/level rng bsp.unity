@@ -708,9 +708,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01a9354af9970fb488b6a0e342e35687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iterations: 6
-  pivotMin: 0.4
-  pivotMax: 0.5
+  iterations: 5
+  pivotMin: 0.35
+  pivotMax: 0.65
   dimension: 96
   pillar: {fileID: 1369842158619262, guid: 55e9541c4c2bdd24092116386b5aedeb, type: 2}
   alien: {fileID: 1274886986507966, guid: 49c3aa0b20438aa4a86578a668d4644b, type: 2}

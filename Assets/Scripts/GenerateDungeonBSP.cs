@@ -100,7 +100,7 @@ public class GenerateDungeonBSP : MonoBehaviour
 
             if (tiles[x, y] == false) {
                 GameObject p =  GameObject.Instantiate(alien);
-                p.transform.position = new Vector3(x - dimension / 2, 0, y - dimension / 2);
+                p.transform.position = new Vector3(x - dimension / 2, 2, y - dimension / 2);
             }
 
         }
