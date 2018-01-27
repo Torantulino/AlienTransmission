@@ -8,7 +8,7 @@ using UnityEngine.AI;
 
 public class SoldierCommands : MonoBehaviour
 {
-    public float Damping = 1f;
+    public float Damping = 10f;
 
     public List<ICommand> CommandList { get; set; }
     public bool CanAction { get; set; }
@@ -24,7 +24,7 @@ public class SoldierCommands : MonoBehaviour
 
     private void Update()
     {
-        if (CanAction && CommandList.Any())
+        if (CanAction && CommandList.Any(x => !x.Completed))
         {
             StartCoroutine(RunAction());
         }
@@ -32,16 +32,16 @@ public class SoldierCommands : MonoBehaviour
 
     private IEnumerator RunAction()
     {
-        foreach(var command in CommandList)
+        RemoveCommands();
+        while (CommandList.Any(x => !x.Completed))
         {
-            yield return StartCoroutine(HandleCommands(command));
+            var currentCommand = CommandList.FirstOrDefault(x => !x.Completed);
+            yield return StartCoroutine(HandleCommands(currentCommand));
         }
     }
 
-    private IEnumerator HandleCommands(ICommand command)
+    private IEnumerator HandleCommands(ICommand currentCommand)
     {
-        var currentCommand = CommandList.First();
-
         switch (currentCommand.CommandType)
         {
             case CommandEnum.Movement:
@@ -53,12 +53,17 @@ public class SoldierCommands : MonoBehaviour
         }
     }
 
-    private void RemoveCommand()
+    private void RemoveCommands()
     {
-        CommandList.RemoveAt(0);
+        if (CommandList.Any(x => x.Completed))
+        {
+            CommandList.RemoveAt(0);
+        }
+
         if (!CommandList.Any())
         {
-            CanAction = false;
+            CommandList.Clear();
+            CanAction = true;
         }
     }
 
@@ -72,18 +77,21 @@ public class SoldierCommands : MonoBehaviour
             yield return null;
         }
 
+        command.Completed = true;
     }
 
     private IEnumerator HandleFaceCommand(FaceCommand command)
     {
-        var desiredRotQ = Quaternion.Euler(0, 45, 0);
+        float angle = Vector3.Angle(command.Target, transform.forward);
+        var desiredRotQ = Quaternion.Euler(0, angle, 0);
         transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotQ, Time.deltaTime * Damping);
 
-        while (transform.rotation.y != 45)
+        while(transform.rotation.y != angle)
         {
             yield return null;
         }
 
+        command.Completed = true;
     }
 
 }
