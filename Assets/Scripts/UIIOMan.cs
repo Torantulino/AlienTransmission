@@ -280,9 +280,23 @@ public class UIIOMan : MonoBehaviour
 	    {
 	        for (int j = 0; j < 4; j++)
 	        {
-	            radioArray[i,j].GetComponent<Text>().text = cmdArray[j,i];
-	        }
-	    }
+                radioArray[i, j].GetComponent<Text>().text = cmdArray[j, i];
+
+            //    if (!string.IsNullOrEmpty(cmdArray[j, i]))
+            //    {
+            //        var str = cmdArray[j, i].Split();
+            //        var message = str[0] + "<color=yellow> " + str[1] + "</color> " + str[2];
+
+
+            //        //radioArray[i,j].GetComponent<Text>().text = cmdArray[j,i];
+            //        radioArray[i, j].GetComponent<Text>().text = message;
+            //    }
+            //    else
+            //    {
+            //        radioArray[i, j].GetComponent<Text>().text = cmdArray[j, i];
+            //    }
+            //}
+        }
 	}
 
 }
