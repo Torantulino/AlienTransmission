@@ -13,6 +13,8 @@ public class SoldierCommands : MonoBehaviour
     public List<ICommand> CommandList { get; set; }
     public bool CanAction { get; set; }
 
+    public Animator soldierAnimator;
+
     private NavMeshAgent agent;
     private Shoot shoot;
 
@@ -87,6 +89,7 @@ public class SoldierCommands : MonoBehaviour
 
     private IEnumerator HandleMovementCommand(MovementCommand command)
     {
+        soldierAnimator.SetBool(0, true);
         agent.destination = command.Destination;
 
         if (agent.pathPending)
@@ -98,6 +101,7 @@ public class SoldierCommands : MonoBehaviour
         }
 
         command.Completed = true;
+        soldierAnimator.SetBool(0, false);
     }
 
     private IEnumerator HandleFaceCommand(FaceCommand command)
