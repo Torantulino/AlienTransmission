@@ -4235,7 +4235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 694b740be33ad1848a0ecb466af34aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerTurnTime: 5
+  TurnTime: 5
   TransmitButton: {fileID: 1373413235}
   SoldierList:
   - {fileID: 2058111220}
@@ -4254,6 +4254,7 @@ MonoBehaviour:
   - {fileID: 1976266417}
   - {fileID: 1103551627}
   - {fileID: 1545664195}
+  uiManager: {fileID: 1433858618}
 --- !u!1 &1585047248
 GameObject:
   m_ObjectHideFlags: 0
