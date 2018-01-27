@@ -10,6 +10,7 @@ public class UCForcer : MonoBehaviour
 
     public void Start()
     {
+        inputField.text = "ISSUE ORDER.";
        //Add Listener to call ValChanged
         inputField.onValueChange.AddListener(delegate {ValChanged(); });
     }
