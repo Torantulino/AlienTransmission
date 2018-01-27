@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 
 
-public class script : MonoBehaviour
+public class UIIOMan : MonoBehaviour
 {
     public GameObject alphaRad1;
     public GameObject alphaRad2;
@@ -20,10 +20,13 @@ public class script : MonoBehaviour
     public GameObject deltaRad1;
     public GameObject deltaRad2;
     public GameObject deltaRad3;
+    public GameObject terminalInput;
+
+    public CommandController CmdController;
 
     public const int numOrder = 3;
 
-    private GameObject[][] radioArray;
+    private GameObject[,] radioArray;
     private string[,] cmdArray; // array of commands for each soldier
     private string CurrentOrder;
     private int state = 0;
@@ -38,19 +41,22 @@ public class script : MonoBehaviour
         //Use this to access text: alphaRad1.InputField.text
         //Use this to set text (feedback from Agents): SEE BELOW
 
+        radioArray = new GameObject[3,4];
+
         //Populate Radio Array
-        radioArray[0][0] = alphaRad1;
-	    radioArray[1][0] = alphaRad2;
-	    radioArray[2][0] = alphaRad3;
-	    radioArray[0][1] = bravoRad1;
-	    radioArray[1][1] = bravoRad2;
-	    radioArray[2][1] = bravoRad3;
-	    radioArray[0][2] = charlieRad1;
-	    radioArray[1][2] = charlieRad2;
-	    radioArray[2][2] = charlieRad3;
-	    radioArray[0][3] = deltaRad1;
-	    radioArray[1][3] = deltaRad2;
-	    radioArray[2][3] = deltaRad3;
+        radioArray[0,0] = alphaRad1;
+	    radioArray[1,0] = alphaRad2;
+	    radioArray[2,0] = alphaRad3;
+	    radioArray[0,1] = bravoRad1;
+	    radioArray[1,1] = bravoRad2;
+	    radioArray[2,1] = bravoRad3;
+	    radioArray[0,2] = charlieRad1;
+	    radioArray[1,2] = charlieRad2;
+	    radioArray[2,2] = charlieRad3;
+	    radioArray[0,3] = deltaRad1;
+	    radioArray[1,3] = deltaRad2;
+	    radioArray[2,3] = deltaRad3;
+    
 
         cmdArray = new string[4, numOrder];
         for (int i = 0; i < 4; i++)
@@ -63,6 +69,10 @@ public class script : MonoBehaviour
        
 
 	}
+
+    public void ExecuteCmds() {
+        CmdController.UpdateCommands(cmdArray);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -70,9 +80,9 @@ public class script : MonoBehaviour
         emptyslot = new int[4];
 
         //Recieve Intel ##Extract to relevet method##
-	    string intel = "";
-	    radioArray[0][0].GetComponent<InputField>().enabled = false;   //Disable InputField to allow text display.
-	    radioArray[0][0].GetComponent<Text>().text = intel;            //Display text.
+	    //string intel = "";
+	    //radioArray[0][0].GetComponent<InputField>().enabled = false;   //Disable InputField to allow text display.
+	    //radioArray[0][0].GetComponent<Text>().text = intel;            //Display text.
 
 
         // clear empty orders from the array
@@ -182,7 +192,7 @@ public class script : MonoBehaviour
                     Cverb = "";
                     Cobject = "";
                     state = 0;
-                } else
+                } else if (Cverb != "ENGAGE")
                 {
                     Cobject += c;
                 }
@@ -191,5 +201,19 @@ public class script : MonoBehaviour
 
         CurrentOrder = Csubject + " " + Cverb + " " + Cobject;
 
-    }
+
+        //Update UI
+
+        //Update Input
+	    terminalInput.GetComponent<Text>().text = CurrentOrder+"_";
+
+        //Update Output
+	    for (int i = 0; i < 3;i++)
+	    {
+	        for (int j = 0; j < 4; j++)
+	        {
+	            radioArray[i,j].GetComponent<Text>().text = cmdArray[j,i];
+	        }
+	    }
+	}
 }
