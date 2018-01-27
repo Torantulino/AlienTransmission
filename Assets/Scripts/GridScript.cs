@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class GridScript : MonoBehaviour
 {
@@ -48,6 +49,24 @@ public class GridScript : MonoBehaviour
             lineMaterial.SetInt("_ZWrite", 0);
         }
     }
+
+	public Vector2Int GridStringToCoords(string gridString) {
+		try {
+			int x = gridString.ToUpper().ToCharArray()[0] - 'A';
+			int y = int.Parse(gridString.Substring(1)) - 1;
+			return new Vector2Int(x, y);
+		} catch (Exception e) {
+			return new Vector2Int(-1, -1);
+		}
+	}
+
+	public Vector3 GridCoordstoWorld(Vector2Int gridCoord) {
+		Debug.Log(gridCoord);
+		float x = gridCoord.x * largeStep - cam.orthographicSize * cam.aspect + largeStep / 2 + 0.5f;
+		float z = gridCoord.y * largeStep - cam.orthographicSize + largeStep / 2 + 0.5f;
+
+		return cam.transform.position + new Vector3(x, 0, z);
+	}
 
     void OnPostRender()
     {
