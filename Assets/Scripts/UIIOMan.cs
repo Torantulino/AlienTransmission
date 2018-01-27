@@ -130,18 +130,24 @@ public class UIIOMan : MonoBehaviour
                 state = 1;
                 Csubject = "BRAVO";
                 Cman = 1;
+                halo = (Behaviour)bravosp.GetComponent("Halo");
+                halo.enabled = true;
             }
             if (Input.GetKeyDown("c"))
             {
                 state = 1;
                 Csubject = "CHARLIE";
                 Cman = 2;
+                halo = (Behaviour)charliesp.GetComponent("Halo");
+                halo.enabled = true;
             }
             if (Input.GetKeyDown("d"))
             {
                 state = 1;
                 Csubject = "DELTA";
                 Cman = 3;
+                halo = (Behaviour)deltasp.GetComponent("Halo");
+                halo.enabled = true;
             }
             if (Input.GetKeyDown("backspace"))
             {
@@ -156,6 +162,11 @@ public class UIIOMan : MonoBehaviour
             {
                 state = 0;
                 Csubject = "";
+                if (Cman == 0) halo = (Behaviour)alphasp.GetComponent("Halo");
+                if (Cman == 1) halo = (Behaviour)bravosp.GetComponent("Halo");
+                if (Cman == 2) halo = (Behaviour)charliesp.GetComponent("Halo");
+                if (Cman == 3) halo = (Behaviour)deltasp.GetComponent("Halo");
+                halo.enabled = false;
             }
 
             if (Input.GetKeyUp("m"))
@@ -190,6 +201,11 @@ public class UIIOMan : MonoBehaviour
             }
         } else if (state == 2)
         {
+            if (Cman == 0) halo = (Behaviour)alphasp.GetComponent("Halo");
+            if (Cman == 1) halo = (Behaviour)bravosp.GetComponent("Halo");
+            if (Cman == 2) halo = (Behaviour)charliesp.GetComponent("Halo");
+            if (Cman == 3) halo = (Behaviour)deltasp.GetComponent("Halo");
+            halo.enabled = true;
             if (Cverb != "ENGAGE") gridscript.mainColor = new Color(0f, 1f, 0f, 0.7f);
             foreach (char c in Input.inputString)
             {
@@ -218,6 +234,11 @@ public class UIIOMan : MonoBehaviour
                     yt = -1;
                     gridscript.xSelected = -1;
                     gridscript.ySelected = -1;
+                    if (Cman == 0) halo = (Behaviour)alphasp.GetComponent("Halo");
+                    if (Cman == 1) halo = (Behaviour)bravosp.GetComponent("Halo");
+                    if (Cman == 2) halo = (Behaviour)charliesp.GetComponent("Halo");
+                    if (Cman == 3) halo = (Behaviour)deltasp.GetComponent("Halo");
+                    halo.enabled = false;
                 }
                 else if ((Cverb != "ENGAGE") && (((Cobject == "") && (c - 'a' > -1) && (c - 'z' < 1)) || ((Cobject!= "") && (c - '0' > -1) && (c - '9' < 1)) ))
                 {
