@@ -5,14 +5,14 @@ using UnityEngine.EventSystems;
 
 public class MapAnnotator : MonoBehaviour
 {
+	public Camera AOCam;
+
     private GameObject selectedIcon;
     private GameObject targetedIcon;
-    public RectTransform panelRect;
-    public Camera mainCam;
+    RectTransform panelRect;
 
-	// Use this for initialization
 	void Start () {
-		
+		panelRect = GetComponent<RectTransform>();
 	}
 
     public void placeIcon(Vector2 pos)
@@ -22,13 +22,19 @@ public class MapAnnotator : MonoBehaviour
 
     void OnGUI()
     {
-        Event evnt = Event.current;
-        Vector2 localCoord = new Vector2(0,0);
+		Vector2 localCoord;
         if (Input.GetMouseButtonDown(0))
         {
-            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(panelRect, evnt.mousePosition, mainCam, out localCoord))
+			if (RectTransformUtility.ScreenPointToLocalPointInRectangle(panelRect, Input.mousePosition, null, out localCoord))
             {
-                Debug.Log(localCoord);
+				AOCam.aspect = panelRect.rect.width / panelRect.rect.height;
+				localCoord += panelRect.rect.size / 2;
+				float x = localCoord.x * AOCam.pixelRect.width / panelRect.rect.width;
+				float y = localCoord.y * AOCam.pixelRect.height / panelRect.rect.height;
+				Ray worldRay = AOCam.ScreenPointToRay(new Vector2(x, y));
+				Vector3 worldPoint = worldRay.GetPoint(5);
+
+				Debug.Log(worldPoint);
             }
         }
     }
