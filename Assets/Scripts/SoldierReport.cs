@@ -10,7 +10,16 @@ public class SoldierReport : MonoBehaviour {
 	public float additionalReportChance = 0.5f;
 	public float maxReports = 3;
 
+	UIIOMan uiioMan;
+
+	void Start() {
+		uiioMan = GameObject.FindObjectOfType<UIIOMan>();
+	}
+
 	void Update() {
+		if (Input.GetKeyDown(KeyCode.R)) {
+			Report();
+		}
 	}
 
 	public List<string> Report() {
@@ -35,7 +44,6 @@ public class SoldierReport : MonoBehaviour {
 			}
 		}
 
-
 		var counts = seen.GroupBy(item => item.Type).Select(group => new {
 			Type = group.Key,
 			Count = group.Count(),
@@ -53,6 +61,8 @@ public class SoldierReport : MonoBehaviour {
 			}
 			reports.Add(transform.name + " saw " + count.Count + " " + count.Type);
 		}
+
+		uiioMan.Report(reports, GetComponent<SoldierInfo>().name);
 
 		return reports;
 	}
