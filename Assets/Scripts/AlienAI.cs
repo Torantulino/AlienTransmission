@@ -13,7 +13,8 @@ public class AlienAI : MonoBehaviour {
 
 	void Start() {
 		agent = GetComponent<NavMeshAgent>();
-	}
+        canAct = false;
+    }
 	
 	void Update() {
 		agent.enabled = canAct;
