@@ -21,8 +21,6 @@ public class UIIOMan : MonoBehaviour
     public GameObject deltaRad2;
     public GameObject deltaRad3;
     public GameObject terminalInput;
-    public int highlightX = -1;
-    public int highlightY = -1;
     public CommandController CmdController;
 
     public const int numOrder = 3;
@@ -212,26 +210,26 @@ public class UIIOMan : MonoBehaviour
                     Cobject += c;
                 }
             }
-            /*
-            if (Csubject.Length > 0)
+            
+            if (Cobject.Length > 0)
             {
-               xt = Csubject.ToUpper().ToCharArray()[0] - 'A';
+               xt = Cobject.ToUpper().ToCharArray()[0] - 'A';
                 //int y = int.Parse(gridCoord.Substring(1)) - 1;
                 //if (gridscript.xSelected < xt) gridscript.xSelected += 1;
             } else
             {
                 xt = -1;
             }
-            if (Csubject.Length > 1)
+            if (Cobject.Length > 1)
             {
-              yt = int.Parse(Csubject.Substring(1)) - 1;
+              yt = int.Parse(Cobject.Substring(1)) - 1;
                 //int y = int.Parse(gridCoord.Substring(1)) - 1;
                 //if (gridscript.ySelected < yt) gridscript.ySelected += 1;
             } else
             {
                 yt = -1;
             }
-            */
+            
 
         }
         if (Cobject != "")
@@ -254,8 +252,8 @@ public class UIIOMan : MonoBehaviour
         if (ticker == 4)
         {
             ticker = 0;
-        //    if (gridscript.xSelected != xt) gridscript.xSelected += Math.Sign(xt - gridscript.xSelected);
-         //   if (gridscript.ySelected != yt) gridscript.ySelected += Math.Sign(yt - gridscript.ySelected);
+            if (gridscript.xSelected != xt) gridscript.xSelected += Math.Sign(xt - gridscript.xSelected);
+           if (gridscript.ySelected != yt) gridscript.ySelected += Math.Sign(yt - gridscript.ySelected);
         //    gridscript.ySelected = yt;
             if (DOrder != CurrentOrder + "_")
             {
