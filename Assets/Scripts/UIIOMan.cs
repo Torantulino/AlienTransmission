@@ -277,7 +277,7 @@ public class UIIOMan : MonoBehaviour
         //Update Input
         terminalInput.GetComponent<Text>().text = DOrder;
 
-		if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) {
+		if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown((KeyCode.Backspace))) {
 			//Update Output
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 4; j++) {
