@@ -22,6 +22,7 @@ public class UIIOMan : MonoBehaviour
     public GameObject deltaRad3;
     public GameObject terminalInput;
     public CommandController CmdController;
+    public TurnManager TurnManager;
 
     public const int numOrder = 3;
 
@@ -78,6 +79,7 @@ public class UIIOMan : MonoBehaviour
 
     public void ExecuteCmds() {
         CmdController.UpdateCommands(cmdArray);
+        TurnManager.EnterTurn(Turn.PlayerMoving);
     }
 
     // Update is called once per frame

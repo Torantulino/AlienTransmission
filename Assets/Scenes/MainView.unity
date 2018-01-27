@@ -3674,6 +3674,7 @@ MonoBehaviour:
   deltaRad3: {fileID: 1681193961}
   terminalInput: {fileID: 347596723}
   CmdController: {fileID: 1582892909}
+  TurnManager: {fileID: 1582892911}
 --- !u!224 &1433858619
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4170,8 +4171,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 694b740be33ad1848a0ecb466af34aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerTurnTime: 20
-  AlienTurnTime: 10
+  PlayerTurnTime: 10
+  AlienTurnTime: 5
   TransmitButton: {fileID: 1373413235}
   SoldierList:
   - {fileID: 2032500379}
@@ -5389,7 +5390,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4591095859385926, guid: 0ee133b40ceefee439be921a8cedfe1f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 15
+      value: 12.76
       objectReference: {fileID: 0}
     - target: {fileID: 4591095859385926, guid: 0ee133b40ceefee439be921a8cedfe1f, type: 2}
       propertyPath: m_LocalPosition.y
@@ -5397,7 +5398,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4591095859385926, guid: 0ee133b40ceefee439be921a8cedfe1f, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -5
+      value: -0.04
       objectReference: {fileID: 0}
     - target: {fileID: 4591095859385926, guid: 0ee133b40ceefee439be921a8cedfe1f, type: 2}
       propertyPath: m_LocalRotation.x
