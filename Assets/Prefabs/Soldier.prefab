@@ -27,6 +27,7 @@ GameObject:
   - component: {fileID: 114304646108163818}
   - component: {fileID: 114592667929807760}
   - component: {fileID: 114407777012362590}
+  - component: {fileID: 114648943748798888}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Untagged
@@ -41,7 +42,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1859916745765550}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.93, y: 0.93, z: -5.66}
+  m_LocalPosition: {x: 22.17, y: 5.3942635e-17, z: 5.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -115,6 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f75bd38e8b59f74458ef745454583338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHP: 1
 --- !u!114 &114592667929807760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -126,6 +128,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63f85c42e011bd445b6693f74d2ecdad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Damping: 1
+--- !u!114 &114648943748798888
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1859916745765550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85ccd0cbc0daba34aa1cd72ddbee5622, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numRays: 20
+  shotAngle: 90
+  range: 10
 --- !u!114 &114875192760258874
 MonoBehaviour:
   m_ObjectHideFlags: 1
