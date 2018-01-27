@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 224968847473309712}
   - component: {fileID: 222741785254379360}
   - component: {fileID: 114221201624785032}
+  - component: {fileID: 114468917767046290}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -40,8 +41,9 @@ GameObject:
   - component: {fileID: 114614467162864960}
   - component: {fileID: 114086265644509252}
   - component: {fileID: 114512412834617442}
+  - component: {fileID: 114127181860764162}
   m_Layer: 5
-  m_Name: txtRadioA1
+  m_Name: txtRadioB1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,7 +96,7 @@ GameObject:
   - component: {fileID: 114984204175052230}
   - component: {fileID: 114787127433986358}
   m_Layer: 5
-  m_Name: txtRadioA2
+  m_Name: txtRadioB2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,7 +115,7 @@ GameObject:
   - component: {fileID: 114557382331100444}
   - component: {fileID: 114239106685912082}
   m_Layer: 5
-  m_Name: txtRadioA3
+  m_Name: txtRadioB3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -215,6 +217,19 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+--- !u!114 &114127181860764162
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1203946880228210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d5b344d47844664f8bcf481541a9d55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Agent: {fileID: 0}
+  CommandList: []
 --- !u!114 &114221201624785032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -287,6 +302,22 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: ALPHA
+--- !u!114 &114468917767046290
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1039733539754654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d5b344d47844664f8bcf481541a9d55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Agent: {fileID: 0}
+  CommandList:
+  - {fileID: 114086265644509252}
+  - {fileID: 114984204175052230}
+  - {fileID: 114557382331100444}
 --- !u!114 &114512412834617442
 MonoBehaviour:
   m_ObjectHideFlags: 1
