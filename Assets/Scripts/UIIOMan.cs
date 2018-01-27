@@ -8,6 +8,12 @@ using UnityEngine.UI;
 
 public class UIIOMan : MonoBehaviour
 {
+    public GameObject alphasp;
+    public GameObject bravosp;
+    public GameObject charliesp;
+    public GameObject deltasp;
+    public Behaviour halo;
+
     public GameObject alphaRad1;
     public GameObject alphaRad2;
     public GameObject alphaRad3;
@@ -64,6 +70,7 @@ public class UIIOMan : MonoBehaviour
 	    radioArray[1,3] = deltaRad2;
 	    radioArray[2,3] = deltaRad3;
     
+        
 
         cmdArray = new string[4, numOrder];
         for (int i = 0; i < 4; i++)
@@ -114,6 +121,9 @@ public class UIIOMan : MonoBehaviour
                 state = 1;
                 Csubject = "ALPHA";
                 Cman = 0;
+                //            alphasp.GetComponent("Halo").size =5;
+                halo = (Behaviour)alphasp.GetComponent("Halo");
+                halo.enabled = true;
             }
             if (Input.GetKeyDown("b"))
             {

@@ -18,7 +18,7 @@ public class SoldierCommands : MonoBehaviour
     private NavMeshAgent agent;
     private Shoot shoot;
 
-    private void Start()
+    private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         CommandList = new List<ICommand>();
