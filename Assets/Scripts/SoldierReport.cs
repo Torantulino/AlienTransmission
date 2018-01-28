@@ -19,9 +19,6 @@ public class SoldierReport : MonoBehaviour {
 	}
 
 	void Update() {
-		if (Input.GetKeyDown(KeyCode.R)) {
-			Report();
-		}
 	}
 
 	public List<string> Report() {
