@@ -2605,8 +2605,17 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Cyborg Warriors\nVS\n Alien Vampires\n In The Dark Side of the Twilight
-    Galaxy:\n Transmission Critical;\n Chapter 2"
+  m_Text: 'Cyborg Warriors
+
+    VS
+
+    Alien Vampires
+
+    In The Dark Side of the Twilight Galaxy:
+
+    Transmission Critical;
+
+    Chapter 2'
 --- !u!222 &1609992163
 CanvasRenderer:
   m_ObjectHideFlags: 0
