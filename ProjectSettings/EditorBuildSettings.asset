@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainView.unity
     guid: 6e2c6ca4eadd05d40bf80b282d24bcf6
+  - enabled: 1
+    path: Assets/Scenes/MainView RNG edition.unity
+    guid: 6f81ef5655bcebc4281f2f574853ea18
