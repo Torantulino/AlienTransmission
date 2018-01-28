@@ -422,7 +422,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '>CURRENT INPUT<'
+  m_Text: A Global Game Jam 2018 Production
 --- !u!222 &347596726
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3310,7 +3310,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '> Alan Managhan'
+  m_Text: '> Alan Monaghan'
 --- !u!222 &2093965747
 CanvasRenderer:
   m_ObjectHideFlags: 0
