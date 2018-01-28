@@ -61,7 +61,7 @@ public class Health : MonoBehaviour {
     {
         hp = maxHP;
         isDead = false;
-        soldierAnimator.SetBool("isMIA", false);
+        soldierAnimator.SetBool("isDowned", false);
         this.gameObject.GetComponentInChildren<LineRenderer>().enabled = true;
     }
 }
