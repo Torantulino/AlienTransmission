@@ -22,6 +22,9 @@ public class SoldierReport : MonoBehaviour {
 	}
 
 	void Update() {
+		if (Input.GetKeyDown(KeyCode.F3)) {
+			Report();
+		}
 	}
 
 	public List<string> Report() {
