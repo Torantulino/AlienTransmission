@@ -2005,7 +2005,7 @@ MonoBehaviour:
   charlie: {fileID: 1307161188650534, guid: b7adc7a788f64874faec6c11c30a9a74, type: 2}
   delta: {fileID: 1905835892626814, guid: f26ae8b58d657bb42856c5155c1d17ad, type: 2}
   maxAlienSpawnSpacing: 2
-  maxAlienSpawnPlayerSpacing: 6
+  maxAlienSpawnPlayerSpacing: 12
 --- !u!4 &1249062778
 Transform:
   m_ObjectHideFlags: 0

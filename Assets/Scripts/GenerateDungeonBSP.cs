@@ -171,12 +171,12 @@ public class GenerateDungeonBSP : MonoBehaviour
 
             if (tiles[x, y] == false)
             {
-                Debug.Log("checking for player proximity");
+               
                 //ayy lamoas dont start too close to player start position
-                if (playerPositions.Find(p => Mathf.Sqrt(((p.x - x) ^ 2) + ((p.y - y) ^ 2)) < maxAlienSpawnPlayerSpacing) != null)
+                if (playerPositions.Find(p => Mathf.Sqrt(((p.x - x) ^ 2) + ((p.y - y) ^ 2)) < maxAlienSpawnPlayerSpacing) == null)
                 {
-                    Debug.Log("check for friend proximity");
-                    if (alienPositions.Find(p => Mathf.Sqrt(((p.x - x) ^ 2) + ((p.y - y) ^ 2)) < maxAlienSpawnSpacing) != null)
+                   
+                    if (alienPositions.Find(p => Mathf.Sqrt(((p.x - x) ^ 2) + ((p.y - y) ^ 2)) < maxAlienSpawnSpacing) == null)
                     { //make sure ayy lmaos srent spawned to close to each other
 
 
