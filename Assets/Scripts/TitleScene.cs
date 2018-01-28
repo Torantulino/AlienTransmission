@@ -14,4 +14,7 @@ public class TitleScene : MonoBehaviour {
 	public void Begin() {
 		SceneManager.LoadScene("MainView");
 	}
+	public void BeginRandom() {
+		SceneManager.LoadScene("MainView RNG edition");
+	}
 }
