@@ -2332,6 +2332,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1012505625 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1116488349887454, guid: d3da6d4da673ebe4191d5425d25a622c,
+    type: 2}
+  m_PrefabInternal: {fileID: 85388061}
+--- !u!114 &1012505629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1012505625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 695468fb15fa040459ec95b461f455ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1042895262
 Prefab:
   m_ObjectHideFlags: 0
@@ -3078,6 +3094,8 @@ MonoBehaviour:
   CmdController: {fileID: 1582892909}
   TurnManager: {fileID: 1582892911}
   fourKeys: {fileID: 8300000, guid: fb647c99586e8d143b3725728cffac27, type: 3}
+  TransmitClip: {fileID: 0}
+  singleKey: {fileID: 8300000, guid: 4e94611af1d4f2e4a967b3fc541c88f6, type: 3}
 --- !u!224 &1433858619
 RectTransform:
   m_ObjectHideFlags: 0
