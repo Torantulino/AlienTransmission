@@ -2684,6 +2684,10 @@ Prefab:
       propertyPath: m_Name
       value: Alien (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 1797507555825698, guid: 49c3aa0b20438aa4a86578a668d4644b, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 49c3aa0b20438aa4a86578a668d4644b, type: 2}
   m_IsPrefabParent: 0
