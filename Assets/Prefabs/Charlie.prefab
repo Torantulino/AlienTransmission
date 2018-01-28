@@ -248,9 +248,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85ccd0cbc0daba34aa1cd72ddbee5622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numRays: 20
-  shotAngle: 90
-  range: 10
+  numRays: 30
+  shotAngle: 50
+  range: 15
   fireSound: {fileID: 8300000, guid: b81d67c9944f5af4bbaad54fcf4d4bcf, type: 3}
 --- !u!114 &114552391270470696
 MonoBehaviour:
@@ -266,6 +266,7 @@ MonoBehaviour:
   maxHP: 1
   isDead: 0
   deathSound: {fileID: 8300000, guid: c486659009515f64c890a9a3b6aed14d, type: 3}
+  soldierAnimator: {fileID: 95553666616544378}
 --- !u!114 &114601724891533766
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -313,9 +314,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e87fefe0611794d9dab7e5b1f79c04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numRays: 40
-  fieldOfView: 90
-  viewDistance: 10
+  numRays: 100
+  fieldOfView: 110
+  viewDistance: 40
   additionalReportChance: 0.5
   maxReports: 3
 --- !u!120 &120166152709798700

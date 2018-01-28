@@ -14,6 +14,12 @@ public class Shoot : MonoBehaviour {
 		source = GetComponent<AudioSource>();
 	}
 
+	void Update() {
+		if (Input.GetKeyDown(KeyCode.F4)) {
+			Fire();
+		}
+	}
+
 	public void Fire() {
 		if (!source.isPlaying) {
 			source.PlayOneShot(fireSound);
