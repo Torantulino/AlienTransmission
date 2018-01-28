@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class SoldierReport : MonoBehaviour {
@@ -38,12 +39,24 @@ public class SoldierReport : MonoBehaviour {
 				Debug.DrawLine(transform.position, transform.position + rayDir * viewDistance, Color.red);
 				var interesting = hit.collider.GetComponent<Interesting>();
 				if (interesting) {
-                    var health = hit.collider.GetComponent<Health>();
+                    var theirHealth = hit.collider.GetComponent<Health>();
                     if (health != null)
                     {
                         seen.Add(interesting);
                     }
 				}
+			    if (hit.collider.GetComponent<SoldierInfo>())
+			    {
+			        var theirHealth = hit.collider.GetComponent<Health>();
+			        if (health != null)
+			        {
+			            Debug.Log("I've seen a dead soldier");
+			            Animator theirAnim;
+			            theirAnim = hit.collider.GetComponentInChildren<Animator>();
+                        theirAnim.SetBool("isDowned", true);
+                        theirAnim.SetBool("isMIA", false);
+			        }
+			    }
 			} else {
 				Debug.DrawLine(transform.position, transform.position + rayDir * viewDistance);
 			}
