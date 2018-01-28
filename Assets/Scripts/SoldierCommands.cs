@@ -9,6 +9,7 @@ using UnityEngine.AI;
 public class SoldierCommands : MonoBehaviour
 {
     public float TurnSpeed = 2f;
+    public GridScript gridScript;
 
     public List<ICommand> CommandList { get; set; }
     public bool CanAction { get; set; }
@@ -80,6 +81,9 @@ public class SoldierCommands : MonoBehaviour
             case CommandEnum.Attack:
                 yield return StartCoroutine(HandleEngage((AttackCommand)currentCommand));
                 break;
+            case CommandEnum.Help:
+                yield return StartCoroutine(HandleHelp((HelpCommand)currentCommand));
+                break;
         }
     }
 
@@ -140,7 +144,24 @@ public class SoldierCommands : MonoBehaviour
         soldierAnimator.SetBool("isShooting", false);
     }
 
-    
+    private IEnumerator HandleHelp(HelpCommand command)
+    {
+        soldierAnimator.SetBool("isHelping", true);
+
+        var currentGridPosition = gridScript.WorldCoordsToGrid(transform.position);
+
+        var isAdjacentTo = gridScript.IsAdjacent(command.TargetPosition, currentGridPosition);
+
+        while(!isAdjacentTo)
+        {
+            yield return null;
+        }
+
+        command.Completed = true;
+        soldierAnimator.SetBool("isHelping", false);
+    }
+
+
 
 }
 

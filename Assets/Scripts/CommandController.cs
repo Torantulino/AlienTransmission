@@ -37,7 +37,7 @@ public class CommandController : MonoBehaviour
         if (splitText.Count() > 2)
             commandInfo = splitText[2];
 
-        var solider = SoldierList.FirstOrDefault(x => x.Name.ToUpper() == unitName);
+        var solider = SoldierList.FirstOrDefault(x => x.Name.ToUpper() == unitName.ToUpper());
 
         //Otherwise add action to soldier
         var commands = solider.GetComponent<SoldierCommands>();
@@ -71,6 +71,13 @@ public class CommandController : MonoBehaviour
             };
 
             commands.CommandList.Add(faceCommand);
+        }
+        else if (mainCommand == Commands.HelpCommand)
+        {
+            var helpCommand = new HelpCommand();
+            helpCommand.SoldierToHeal = SoldierList.FirstOrDefault(x => x.Name.ToUpper() == commandInfo.ToUpper());
+            helpCommand.TargetPosition = gridScript.WorldCoordsToGrid(helpCommand.SoldierToHeal.transform.position);
+            commands.CommandList.Add(helpCommand);
         }
     }
 
