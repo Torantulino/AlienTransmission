@@ -101,7 +101,7 @@ public class UIIOMan : MonoBehaviour
     }
 
     public void ExecuteCmds() {
-
+        Source.PlayOneShot(TransmitClip);
         reportArray = new string[4, numOrder];
         for (int i = 0; i < 4; i++)
         {
@@ -214,7 +214,7 @@ public class UIIOMan : MonoBehaviour
         if (state == 10)
         {
             chargeTransmit += 1;
-            Source.PlayOneShot(fourKeys);
+            if ( chargeTransmit < 50) Source.PlayOneShot(fourKeys);
             //Source.Play(TransmitClip);
             
             FixedText = "<color=yellow>----------------------------------------\nCHARGING TRANSMISSION\n";
