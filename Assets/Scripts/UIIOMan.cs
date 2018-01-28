@@ -30,12 +30,15 @@ public class UIIOMan : MonoBehaviour
     public CommandController CmdController;
     public TurnManager TurnManager;
 
+    private int TurnTime = 0;
     public const int numOrder = 3;
-
+    private string FixedText = "";
     private string DOrder = "";
     private int ticker = 0;
+    private int chargeTransmit = 0;
 
     private GameObject[,] radioArray;
+    private string[,] reportArray;
     private string[,] cmdArray; // array of commands for each soldier
     private string CurrentOrder;
     private int state = 0;
@@ -80,15 +83,49 @@ public class UIIOMan : MonoBehaviour
                 cmdArray[i,j] = "";
             }
         }
-       
+        reportArray = new string[4, numOrder];
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < numOrder; j++)
+            {
+                reportArray[i, j] = ">";
+            }
+        }
 
-	}
+    }
 
     public void ExecuteCmds() {
+        reportArray = new string[4, numOrder];
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < numOrder; j++)
+            {
+                reportArray[i, j] = ">";
+            }
+        }
+
+        for (int j = 0; j < 4; j++)
+        {
+                for (int i = 0; i < 3; i++)
+                {
+                    radioArray[i, j].GetComponent<Text>().text = cmdArray[j, i];
+                }
+        }
+
+        state = 11;
+        chargeTransmit = 0;
+        TurnTime = 0;
+        Cobject = "";
+        Cverb = "";
+        Csubject = "";
+        DOrder = "";
         CmdController.UpdateCommands(cmdArray);
         TurnManager.EnterTurn(Turn.PlayerMoving);
     }
-
+ /*   private void FixedUpdate()
+    {
+        if (state == 11) TurnTime += 1;
+    }*/
     // Update is called once per frame
     void Update() {
         int[] emptyslot;
@@ -117,6 +154,9 @@ public class UIIOMan : MonoBehaviour
         }
         if (state == 0)
         {
+            FixedText = "[A/B/C/D]<i>, or </i>[HOLD SPACE]<i> to transmit</i>";
+            FixedText = "<color=grey>" + FixedText + "</color>";
+
             if (Input.GetKeyDown("a")) {
                 state = 1;
                 Csubject = "ALPHA";
@@ -154,10 +194,52 @@ public class UIIOMan : MonoBehaviour
                 cmdArray[Cman, Lslot] = "";
                 if (Lslot > 0) Lslot = Lslot - 1;
             }
-
+            if (Input.GetKeyDown("space") || Input.GetKeyDown(KeyCode.Return))
+            {
+                state = 10;
+                chargeTransmit = 0;
+            }
         }
-        if (state < 2)
+        if (state == 10)
         {
+            chargeTransmit += 1;
+            FixedText = "<color=yellow>----------------------------------------\nCHARGING TRANSMISSION\n";
+            for (int i = 0; i < (chargeTransmit / 5); i++) FixedText += "##";
+            FixedText += "</color>";
+            if (chargeTransmit == 80)
+            {
+                ExecuteCmds();
+                state = 11;
+                chargeTransmit = 0;
+                TurnTime = 0;
+            }
+            if (Input.GetKeyUp("space") || Input.GetKeyUp(KeyCode.Return))
+            {
+                state = 0;
+                DOrder = "TRANSMISSION CANCELLED";
+            }
+        } else if (state == 11){
+            TurnTime += 1;
+            FixedText = "<color=red>RECIEVING TRANSMISSION, PLEASE WAIT\n";
+            int limitT = 300;
+            for (int i = 0; i < (TurnTime / 5); i++) FixedText += "#";
+            FixedText += "</color><color=grey>";
+            for (int i = 0; i < ((limitT - TurnTime) / 5); i++) FixedText += ".";
+            FixedText += "</color>\n<color=red>";
+            for (int i = 0; i < (TurnTime / 5); i++) FixedText += "#";
+            FixedText += "</color><color=grey>";
+            for (int i = 0; i < ((limitT - TurnTime) / 5); i++) FixedText += ".";
+            FixedText += "</color>";
+            if (TurnTime > limitT) state = 0;
+        }
+        else if (state < 2)
+        {
+            if (state == 1)
+            {
+                FixedText = "[M] <i>move</i> [F] <i>face</i> [E] <i>engage</i> [H] <i>help or</i> [Bksp]";
+                FixedText = "<color=grey>" + FixedText + "</color>";
+            }
+
             if (Input.GetKeyDown("backspace"))
             {
                 state = 0;
@@ -201,6 +283,9 @@ public class UIIOMan : MonoBehaviour
             }
         } else if (state == 3)
         {
+            FixedText = "[A/B/C/D]<i> to select a soldier to assist</i>";
+            FixedText = "<color=grey>" + FixedText + "</color>";
+
             if (Cman == 0) halo = (Behaviour)alphasp.GetComponent("Halo");
             if (Cman == 1) halo = (Behaviour)bravosp.GetComponent("Halo");
             if (Cman == 2) halo = (Behaviour)charliesp.GetComponent("Halo");
@@ -245,6 +330,10 @@ public class UIIOMan : MonoBehaviour
             }
         } else if (state == 4)
         {
+  
+                FixedText = "[ENTER]<i> to finish order</i>";
+            FixedText = "<color=grey>" + FixedText + "</color>";
+
             if (Input.GetKeyDown("backspace"))
             {
                 halo.enabled = false;
@@ -259,6 +348,16 @@ public class UIIOMan : MonoBehaviour
         }
         else if (state == 2)
         {
+            if (Cverb == "ENGAGE")
+            {
+                FixedText = "[ENTER]<i> to finish order</i>";
+            }
+            else
+            {
+                FixedText = "<i>Type coordinates then press</i> [ENTER]";
+            }
+            FixedText = "<color=grey>" + FixedText + "</color>";
+
             if (Cman == 0) halo = (Behaviour)alphasp.GetComponent("Halo");
             if (Cman == 1) halo = (Behaviour)bravosp.GetComponent("Halo");
             if (Cman == 2) halo = (Behaviour)charliesp.GetComponent("Halo");
@@ -367,27 +466,59 @@ public class UIIOMan : MonoBehaviour
             }
         }
         //Update Input
-        terminalInput.GetComponent<Text>().text = DOrder;
+        terminalInput.GetComponent<Text>().text =FixedText+"\n"+ DOrder;
 
 		if (Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter) || Input.GetKey((KeyCode.Backspace))) {
-			//Update Output
-			for (int i = 0; i < 3; i++) {
-				for (int j = 0; j < 4; j++) {
-					radioArray[i, j].GetComponent<Text>().text = cmdArray[j, i];
-                    //    if (!string.IsNullOrEmpty(cmdArray[j, i]))
-                    //    {
-                    //        var str = cmdArray[j, i].Split();
-                    //        var message = str[0] + "<color=yellow> " + str[1] + "</color> " + str[2];
+            //Update Output
+            for (int j = 0; j < 4; j++)
+            {
+                if ((cmdArray[j, 0]) == "")
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
 
 
-                    //        //radioArray[i,j].GetComponent<Text>().text = cmdArray[j,i];
-                    //        radioArray[i, j].GetComponent<Text>().text = message;
-                    //    }
-                    //    else
-                    //    {
-                    //        radioArray[i, j].GetComponent<Text>().text = cmdArray[j, i];
-                    //    }
-                    //}
+
+                        radioArray[i, j].GetComponent<Text>().text = reportArray[j, i];
+                        //    if (!string.IsNullOrEmpty(cmdArray[j, i]))
+                        //    {
+                        //        var str = cmdArray[j, i].Split();
+                        //        var message = str[0] + "<color=yellow> " + str[1] + "</color> " + str[2];
+
+
+                        //        //radioArray[i,j].GetComponent<Text>().text = cmdArray[j,i];
+                        //        radioArray[i, j].GetComponent<Text>().text = message;
+                        //    }
+                        //    else
+                        //    {
+                        //        radioArray[i, j].GetComponent<Text>().text = cmdArray[j, i];
+                        //    }
+                        //}
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+
+
+
+                        radioArray[i, j].GetComponent<Text>().text = "> " + cmdArray[j, i];
+                        //    if (!string.IsNullOrEmpty(cmdArray[j, i]))
+                        //    {
+                        //        var str = cmdArray[j, i].Split();
+                        //        var message = str[0] + "<color=yellow> " + str[1] + "</color> " + str[2];
+
+
+                        //        //radioArray[i,j].GetComponent<Text>().text = cmdArray[j,i];
+                        //        radioArray[i, j].GetComponent<Text>().text = message;
+                        //    }
+                        //    else
+                        //    {
+                        //        radioArray[i, j].GetComponent<Text>().text = cmdArray[j, i];
+                        //    }
+                        //}
+                    }
                 }
             }
 		}
@@ -395,19 +526,26 @@ public class UIIOMan : MonoBehaviour
 
 	public void Report(List<string> reports, string soldierName) {
 		int soldierId = 0;
+        string col = "";
 		if (soldierName.ToUpper() == "ALPHA") {
 			soldierId = 0;
+            col = "cyan";
 		} else if (soldierName.ToUpper() == "BRAVO") {
 			soldierId = 1;
+            col = "red";
 		} else if (soldierName.ToUpper() == "CHARLIE") {
 			soldierId = 2;
+            col = "green";
 		} else if (soldierName.ToUpper() == "DELTA") {
 			soldierId = 3;
+            col = "yellow";
 		}
 
 		int i = 0;
 		foreach (var report in reports) {
-			radioArray[i % radioArray.GetLength(0), soldierId].GetComponent<Text>().text = report;
+            reportArray[soldierId, i % radioArray.GetLength(0)] = "<color=" + col + ">|" + report + "|</color>";
+
+            radioArray[i % radioArray.GetLength(0), soldierId].GetComponent<Text>().text ="<color="+col+">|"+ report+"|</color>";
 			i++;
 		}
 	}

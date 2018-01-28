@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class Health : MonoBehaviour {
@@ -8,7 +9,8 @@ public class Health : MonoBehaviour {
     public bool isDead;
     int hp;
 	public AudioClip deathSound;
-	AudioSource source;
+    public Animator soldierAnimator;
+    AudioSource source;
 
 	void Start() {
 		hp = maxHP;
@@ -36,14 +38,30 @@ public class Health : MonoBehaviour {
 			source.PlayOneShot(deathSound);
 		}
 
-        if (GetComponent<AlienAI>())
-        {
-            var alienAi = GetComponent<AlienAI>();
-            alienAi.canAct = false;
+	    if (GetComponent<AlienAI>())
+	    {
+	        var alienAi = GetComponent<AlienAI>();
+	        alienAi.canAct = false;
 
-			var interesting = GetComponent<Interesting>();
-			interesting.Type = "dead " + interesting.Type;
-			interesting.priority -= 10;
+	        var interesting = GetComponent<Interesting>();
+	        interesting.Type = "dead " + interesting.Type;
+	        interesting.priority -= 10;
+	    }
+	    else
+	    {
+            Debug.Log("Soldier DED!");
+            soldierAnimator.SetBool("isMIA", true);
+	        this.gameObject.GetComponentInChildren<LineRenderer>().enabled = false;
         }
+
+        
 	}
+
+    public void Revive()
+    {
+        hp = maxHP;
+        isDead = false;
+        soldierAnimator.SetBool("isMIA", false);
+        this.gameObject.GetComponentInChildren<LineRenderer>().enabled = true;
+    }
 }

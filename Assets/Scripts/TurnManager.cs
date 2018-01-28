@@ -21,6 +21,7 @@ public class TurnManager : MonoBehaviour
 
     private void Start()
     {
+		AlienList = GameObject.FindObjectsOfType<AlienAI>();
         EnterTurn(Turn.PlayerPlanning);
     }
 
