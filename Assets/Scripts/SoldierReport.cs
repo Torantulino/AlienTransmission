@@ -52,11 +52,14 @@ public class SoldierReport : MonoBehaviour {
 			        var theirHealth = hit.collider.GetComponent<Health>();
 			        if (health != null)
 			        {
-			            Debug.Log("I've seen a dead soldier");
-			            Animator theirAnim;
-			            theirAnim = hit.collider.GetComponentInChildren<Animator>();
-                        theirAnim.SetBool("isDowned", true);
-                        theirAnim.SetBool("isMIA", false);
+                        if (theirHealth.isDead)
+                        {
+                            Debug.Log("I've seen a dead soldier");
+                            Animator theirAnim;
+                            theirAnim = hit.collider.GetComponentInChildren<Animator>();
+                            theirAnim.SetBool("isDowned", true);
+                            theirAnim.SetBool("isMIA", false);
+                        }
 			        }
 			    }
 			} else {
