@@ -2744,63 +2744,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1200668732
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4775949810815220, guid: 6940ec348d4de8a42bd6420522959c0e, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 42.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4775949810815220, guid: 6940ec348d4de8a42bd6420522959c0e, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4775949810815220, guid: 6940ec348d4de8a42bd6420522959c0e, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -25.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4775949810815220, guid: 6940ec348d4de8a42bd6420522959c0e, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4775949810815220, guid: 6940ec348d4de8a42bd6420522959c0e, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4775949810815220, guid: 6940ec348d4de8a42bd6420522959c0e, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4775949810815220, guid: 6940ec348d4de8a42bd6420522959c0e, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4775949810815220, guid: 6940ec348d4de8a42bd6420522959c0e, type: 2}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 114481617693498036, guid: 6940ec348d4de8a42bd6420522959c0e,
-        type: 2}
-      propertyPath: MissionCompleteText
-      value: 
-      objectReference: {fileID: 39497020}
-    - target: {fileID: 114481617693498036, guid: 6940ec348d4de8a42bd6420522959c0e,
-        type: 2}
-      propertyPath: ActionPanel
-      value: 
-      objectReference: {fileID: 1076301828}
-    - target: {fileID: 114481617693498036, guid: 6940ec348d4de8a42bd6420522959c0e,
-        type: 2}
-      propertyPath: turnManager
-      value: 
-      objectReference: {fileID: 1582892911}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 6940ec348d4de8a42bd6420522959c0e, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1001 &1232897734
 Prefab:
   m_ObjectHideFlags: 0
@@ -2845,6 +2788,21 @@ Prefab:
       propertyPath: soldierAnimator
       value: 
       objectReference: {fileID: 1232897737}
+    - target: {fileID: 212417585728655352, guid: 6482213da47386345b4ef3e2f6b30d3d,
+        type: 2}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212417585728655352, guid: 6482213da47386345b4ef3e2f6b30d3d,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 3.4833333
+      objectReference: {fileID: 0}
+    - target: {fileID: 212417585728655352, guid: 6482213da47386345b4ef3e2f6b30d3d,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 6.133333
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6482213da47386345b4ef3e2f6b30d3d, type: 2}
   m_IsPrefabParent: 0
@@ -4105,11 +4063,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4775949810815220, guid: 6940ec348d4de8a42bd6420522959c0e, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1415310653010682, guid: 6940ec348d4de8a42bd6420522959c0e, type: 2}
       propertyPath: m_Name
-      value: Debug Objective
+      value: Objective
       objectReference: {fileID: 0}
     - target: {fileID: 114481617693498036, guid: 6940ec348d4de8a42bd6420522959c0e,
         type: 2}
@@ -4126,6 +4084,12 @@ Prefab:
       propertyPath: turnManager
       value: 
       objectReference: {fileID: 1582892911}
+    - target: {fileID: 212680203814619460, guid: 6940ec348d4de8a42bd6420522959c0e,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 31c0bc5eef80fba45893d45c7485859b,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6940ec348d4de8a42bd6420522959c0e, type: 2}
   m_IsPrefabParent: 0
