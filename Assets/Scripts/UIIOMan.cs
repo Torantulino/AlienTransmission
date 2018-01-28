@@ -32,6 +32,9 @@ public class UIIOMan : MonoBehaviour
 
     private AudioSource Source;
     public AudioClip fourKeys;
+    public AudioClip TransmitClip;
+    public AudioClip singleKey;
+
     private int soundtick = 0;
     private int TurnTime = 0;
     public const int numOrder = 3;
@@ -98,6 +101,7 @@ public class UIIOMan : MonoBehaviour
     }
 
     public void ExecuteCmds() {
+
         reportArray = new string[4, numOrder];
         for (int i = 0; i < 4; i++)
         {
@@ -211,6 +215,8 @@ public class UIIOMan : MonoBehaviour
         {
             chargeTransmit += 1;
             Source.PlayOneShot(fourKeys);
+            //Source.Play(TransmitClip);
+            
             FixedText = "<color=yellow>----------------------------------------\nCHARGING TRANSMISSION\n";
             for (int i = 0; i < (chargeTransmit / 5); i++) FixedText += "##";
             FixedText += "</color>";
@@ -472,23 +478,27 @@ public class UIIOMan : MonoBehaviour
                 if ((DOrder.Length - 1) > CurrentOrder.Length)
                 {
                     DOrder = DOrder.Substring(0, DOrder.Length - 2) + "_";
-                    if (soundtick == 0)
+                    Source.PlayOneShot(singleKey);
+                   /* if (soundtick == 0)
                     {
                         Source.PlayOneShot(fourKeys);
                     }
                     soundtick += 1;
                     if (soundtick == 3) soundtick = 0;
+                    */
                 }
                 else
                 {
+                    Source.PlayOneShot(singleKey);
                     DOrder = CurrentOrder.Substring(0, DOrder.Length) + "_";
-                    if (soundtick == 0)
+                    /*if (soundtick == 0)
                     {
                         Source.PlayOneShot(fourKeys);
                     }
                     soundtick += 1;
                     if (soundtick == 3) soundtick = 0;
-                }
+                     */            
+                    }
 
             }
         }
