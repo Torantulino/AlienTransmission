@@ -31,9 +31,10 @@ public class UIIOMan : MonoBehaviour
     public TurnManager TurnManager;
 
     public const int numOrder = 3;
-
+    private string FixedText = "";
     private string DOrder = "";
     private int ticker = 0;
+    private int chargeTransmit = 0;
 
     private GameObject[,] radioArray;
     private string[,] cmdArray; // array of commands for each soldier
@@ -117,6 +118,9 @@ public class UIIOMan : MonoBehaviour
         }
         if (state == 0)
         {
+            FixedText = "[A/B/C/D]<i>, or </i>[HOLD SPACE]<i> to transmit</i>";
+            FixedText = "<color=grey>" + FixedText + "</color>";
+
             if (Input.GetKeyDown("a")) {
                 state = 1;
                 Csubject = "ALPHA";
@@ -154,10 +158,38 @@ public class UIIOMan : MonoBehaviour
                 cmdArray[Cman, Lslot] = "";
                 if (Lslot > 0) Lslot = Lslot - 1;
             }
-
+            if (Input.GetKeyDown("space") || Input.GetKeyDown(KeyCode.Return))
+            {
+                state = 10;
+                chargeTransmit = 0;
+            }
         }
-        if (state < 2)
+        if (state == 10)
         {
+            chargeTransmit += 1;
+            FixedText = "----------------------------------------\n<color=yellow>CHARGING TRANSMISSION\n";
+            for (int i = 0; i < (chargeTransmit / 5); i++) FixedText += "##";
+            FixedText += "</color>";
+            if (chargeTransmit == 80)
+            {
+                ExecuteCmds();
+                state = 0;
+                chargeTransmit = 0;
+            }
+            if (Input.GetKeyUp("space") || Input.GetKeyUp(KeyCode.Return))
+            {
+                state = 0;
+                DOrder = "TRANSMISSION CANCELLED";
+            }
+        }
+        else if (state < 2)
+        {
+            if (state == 1)
+            {
+                FixedText = "[M] <i>move</i> [F] <i>face</i> [E] <i>engage</i> [H] <i>help or</i> [Bksp]";
+                FixedText = "<color=grey>" + FixedText + "</color>";
+            }
+
             if (Input.GetKeyDown("backspace"))
             {
                 state = 0;
@@ -201,6 +233,9 @@ public class UIIOMan : MonoBehaviour
             }
         } else if (state == 3)
         {
+            FixedText = "[A/B/C/D]<i> to select a soldier to assist</i>";
+            FixedText = "<color=grey>" + FixedText + "</color>";
+
             if (Cman == 0) halo = (Behaviour)alphasp.GetComponent("Halo");
             if (Cman == 1) halo = (Behaviour)bravosp.GetComponent("Halo");
             if (Cman == 2) halo = (Behaviour)charliesp.GetComponent("Halo");
@@ -245,6 +280,10 @@ public class UIIOMan : MonoBehaviour
             }
         } else if (state == 4)
         {
+  
+                FixedText = "[ENTER]<i> to finish order</i>";
+            FixedText = "<color=grey>" + FixedText + "</color>";
+
             if (Input.GetKeyDown("backspace"))
             {
                 halo.enabled = false;
@@ -259,6 +298,16 @@ public class UIIOMan : MonoBehaviour
         }
         else if (state == 2)
         {
+            if (Cverb == "ENGAGE")
+            {
+                FixedText = "[ENTER]<i> to finish order</i>";
+            }
+            else
+            {
+                FixedText = "<i>Type coordinates then press</i> [ENTER]";
+            }
+            FixedText = "<color=grey>" + FixedText + "</color>";
+
             if (Cman == 0) halo = (Behaviour)alphasp.GetComponent("Halo");
             if (Cman == 1) halo = (Behaviour)bravosp.GetComponent("Halo");
             if (Cman == 2) halo = (Behaviour)charliesp.GetComponent("Halo");
@@ -367,7 +416,7 @@ public class UIIOMan : MonoBehaviour
             }
         }
         //Update Input
-        terminalInput.GetComponent<Text>().text = DOrder;
+        terminalInput.GetComponent<Text>().text =FixedText+"\n"+ DOrder;
 
 		if (Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter) || Input.GetKey((KeyCode.Backspace))) {
 			//Update Output

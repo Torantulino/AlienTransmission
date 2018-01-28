@@ -8,7 +8,7 @@ using UnityEngine.AI;
 
 public class SoldierCommands : MonoBehaviour
 {
-    public float Damping = 10f;
+    public float TurnSpeed = 2f;
 
     public List<ICommand> CommandList { get; set; }
     public bool CanAction { get; set; }
@@ -18,6 +18,7 @@ public class SoldierCommands : MonoBehaviour
     private NavMeshAgent agent;
     private Shoot shoot;
 	private Health health;
+    private GridScript grid;
 
     private void Awake()
     {
@@ -26,6 +27,7 @@ public class SoldierCommands : MonoBehaviour
         CanAction = false;
         shoot = GetComponent<Shoot>();
 		health = GetComponent<Health>();
+        grid = GameObject.FindObjectOfType<GridScript>();
     }
 
     private void Update()
@@ -59,6 +61,7 @@ public class SoldierCommands : MonoBehaviour
         if (agent != null)
         {
             agent.isStopped = true;
+            agent.SetDestination(transform.position);
         }
         CanAction = false;
         CommandList.Clear();
@@ -79,6 +82,9 @@ public class SoldierCommands : MonoBehaviour
                 break;
             case CommandEnum.Attack:
                 yield return StartCoroutine(HandleEngage((AttackCommand)currentCommand));
+                break;
+            case CommandEnum.Help:
+                yield return StartCoroutine(HandleHelp((HelpCommand)currentCommand));
                 break;
         }
     }
@@ -119,7 +125,7 @@ public class SoldierCommands : MonoBehaviour
         soldierAnimator.SetBool("isMoving", true);
 
         Vector3 targetDir = command.Target - transform.position;
-        float step = 3 * Time.deltaTime;
+        float step = TurnSpeed * Time.deltaTime;
         Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0F);
         Debug.DrawRay(transform.position, newDir, Color.red);
         transform.rotation = Quaternion.LookRotation(newDir);
@@ -140,7 +146,36 @@ public class SoldierCommands : MonoBehaviour
         soldierAnimator.SetBool("isShooting", false);
     }
 
-    
+    private IEnumerator HandleHelp(HelpCommand command)
+    {
+        soldierAnimator.SetBool("isMoving", true);
+        agent.destination = command.SoldierToHeal.transform.position;
+
+        if (agent.pathPending)
+            yield return null;
+
+        var currentGridPosition = grid.WorldCoordsToGrid(transform.position);
+
+        var isAdjacentTo = grid.IsAdjacent(command.TargetPosition, currentGridPosition);
+
+        while (!isAdjacentTo)
+        {
+            yield return null;
+        }
+
+        //Now stop moving
+        agent.isStopped = true;
+        soldierAnimator.SetBool("isMoving", false);
+        //soldierAnimator.SetBool("isHelping", true);
+
+        yield return new WaitForSeconds(1f);
+
+        command.Completed = true;
+
+        //soldierAnimator.SetBool("isHelping", false);
+    }
+
+
 
 }
 
