@@ -30,6 +30,9 @@ public class UIIOMan : MonoBehaviour
     public CommandController CmdController;
     public TurnManager TurnManager;
 
+    private AudioSource Source;
+    public AudioClip fourKeys;
+
     private int TurnTime = 0;
     public const int numOrder = 3;
     private string FixedText = "";
@@ -53,9 +56,9 @@ public class UIIOMan : MonoBehaviour
     private GameObject gridcam;
     private GridScript gridscript;
     // Use this for initialization
-    void Awake () {
-        //Use this to access text: alphaRad1.InputField.text
-        //Use this to set text (feedback from Agents): SEE BELOW
+    void Awake ()
+    {
+        Source = GetComponent<AudioSource>();
 
         radioArray = new GameObject[3,4];
 
@@ -198,6 +201,10 @@ public class UIIOMan : MonoBehaviour
             {
                 state = 10;
                 chargeTransmit = 0;
+            }
+            if (Input.GetKeyDown("a") || Input.GetKeyDown("b") || Input.GetKeyDown("c") || Input.GetKeyDown("d"))
+            {
+                Source.PlayOneShot(fourKeys);
             }
         }
         if (state == 10)

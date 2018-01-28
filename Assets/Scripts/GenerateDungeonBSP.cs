@@ -115,16 +115,19 @@ public class GenerateDungeonBSP : MonoBehaviour
                 GameObject a = GameObject.Instantiate(alpha);
                 a.transform.position = new Vector3(x - dimension / 2, 0, y - dimension / 2);
                 playerPositions.Add(new Point(x,y));
+                a.name = "Alpha";
                 GameObject b = GameObject.Instantiate(bravo);
                 b.transform.position = new Vector3(x - dimension / 2, 0, y + 3 - dimension / 2);
                 playerPositions.Add(new Point(x, y+3));
+                b.name = "Bravo";
                 GameObject c = GameObject.Instantiate(charlie);
                 c.transform.position = new Vector3(x - dimension / 2, 0, y + 6 - dimension / 2);
                 playerPositions.Add(new Point(x, y+5));
+                c.name = "Charlie";
                 GameObject d = GameObject.Instantiate(delta);
                 d.transform.position = new Vector3(x - dimension / 2, 0, y + 7 - dimension / 2);
                 playerPositions.Add(new Point(x, y+7));
-
+                d.name = "Delta";
                 //set up command controller
 
                 GameObject turnManagerObj = GameObject.Find("Turn Manager");

@@ -60,6 +60,19 @@ public class TurnManager : MonoBehaviour
         }
     }
 
+    public void StopAllActions()
+    {
+        foreach (var soldier in SoldierList)
+        {
+            soldier.EndCommands();
+        }
+
+        foreach (var alien in AlienList)
+        {
+            alien.canAct = false;
+        }
+    }
+
     private void EnterPlanningMode(bool endTurn)
     {
         TransmitButton.interactable = true;
