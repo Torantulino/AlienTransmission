@@ -58,6 +58,9 @@ public class SoldierCommands : MonoBehaviour
         }
         CanAction = false;
         CommandList.Clear();
+        soldierAnimator.SetBool(0, false);
+        soldierAnimator.SetBool(1, false);
+        soldierAnimator.SetBool(2, false);
     }
 
     private IEnumerator HandleCommands(ICommand currentCommand)
@@ -132,6 +135,8 @@ public class SoldierCommands : MonoBehaviour
         command.Completed = true;
         soldierAnimator.SetBool("isShooting", false);
     }
+
+    
 
 }
 
