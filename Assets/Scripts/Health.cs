@@ -31,7 +31,10 @@ public class Health : MonoBehaviour {
         {
             var alienAi = GetComponent<AlienAI>();
             alienAi.canAct = false;
+
+			var interesting = GetComponent<Interesting>();
+			interesting.Type = "dead " + interesting.Type;
+			interesting.priority -= 10;
         }
-		//TODO: Do something.
 	}
 }

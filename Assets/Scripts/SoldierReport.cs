@@ -43,7 +43,7 @@ public class SoldierReport : MonoBehaviour {
 				var interesting = hit.collider.GetComponent<Interesting>();
 				if (interesting) {
                     var health = hit.collider.GetComponent<Health>();
-                    if (health != null && !health.isDead)
+                    if (health != null)
                     {
                         seen.Add(interesting);
                     }
