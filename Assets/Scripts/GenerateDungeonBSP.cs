@@ -108,21 +108,21 @@ public class GenerateDungeonBSP : MonoBehaviour
         {
             //find 4 adjacent squares
             int x = Random.Range(0, dimension);
-            int y = Random.Range(0, dimension - 3);
+            int y = Random.Range(0, dimension - 7);
 
-            if (!tiles[x, y] && !tiles[x, y + 1] && !tiles[x, y + 2] && !tiles[x, y + 3])
+            if (!tiles[x, y] && !tiles[x, y + 1] && !tiles[x, y + 2] && !tiles[x, y + 3] && !tiles[x, y + 4] && !tiles[x, y + 5] && !tiles[x, y + 6] && !tiles[x, y + 7])
             {
                 GameObject a = GameObject.Instantiate(alpha);
                 a.transform.position = new Vector3(x - dimension / 2, 0, y - dimension / 2);
                 playerPositions.Add(new Point(x,y));
                 GameObject b = GameObject.Instantiate(bravo);
-                b.transform.position = new Vector3(x - dimension / 2, 0, y + 1 - dimension / 2);
+                b.transform.position = new Vector3(x - dimension / 2, 0, y + 3 - dimension / 2);
                 playerPositions.Add(new Point(x, y+1));
                 GameObject c = GameObject.Instantiate(charlie);
-                c.transform.position = new Vector3(x - dimension / 2, 0, y + 2 - dimension / 2);
+                c.transform.position = new Vector3(x - dimension / 2, 0, y + 6 - dimension / 2);
                 playerPositions.Add(new Point(x, y+2));
                 GameObject d = GameObject.Instantiate(delta);
-                d.transform.position = new Vector3(x - dimension / 2, 0, y + 3 - dimension / 2);
+                d.transform.position = new Vector3(x - dimension / 2, 0, y + 7 - dimension / 2);
                 playerPositions.Add(new Point(x, y+3));
 
                 break;
