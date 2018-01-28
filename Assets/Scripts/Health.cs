@@ -46,4 +46,10 @@ public class Health : MonoBehaviour {
 			interesting.priority -= 10;
         }
 	}
+
+    public void Revive()
+    {
+        hp = maxHP;
+        isDead = false;
+    }
 }
