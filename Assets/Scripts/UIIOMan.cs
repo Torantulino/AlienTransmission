@@ -187,19 +187,77 @@ public class UIIOMan : MonoBehaviour
                 Cverb = "ENGAGE";
                 if ((Csubject == "") && (Lsubject != "")) Csubject = Lsubject;
             }
-            if (Input.GetKeyUp("u"))
+           /* if (Input.GetKeyUp("u"))
             {
                 state = 2;
                 Cverb = "USE";
                 if ((Csubject == "") && (Lsubject != "")) Csubject = Lsubject;
-            }
+            } */
             if (Input.GetKeyUp("h"))
             {
-                state = 2;
+                state = 3;
                 Cverb = "HELP";
                 if ((Csubject == "") && (Lsubject != "")) Csubject = Lsubject;
             }
-        } else if (state == 2)
+        } else if (state == 3)
+        {
+            if (Cman == 0) halo = (Behaviour)alphasp.GetComponent("Halo");
+            if (Cman == 1) halo = (Behaviour)bravosp.GetComponent("Halo");
+            if (Cman == 2) halo = (Behaviour)charliesp.GetComponent("Halo");
+            if (Cman == 3) halo = (Behaviour)deltasp.GetComponent("Halo");
+            halo.enabled = true;
+            if (Input.GetKeyDown("a") && (Cman != 0))
+            {
+                state = 4;
+                Cobject = "ALPHA";
+                //            alphasp.GetComponent("Halo").size =5;
+                halo = (Behaviour)alphasp.GetComponent("Halo");
+                halo.enabled = true;
+            }
+            if (Input.GetKeyDown("b") && (Cman != 1))
+            {
+                state = 4;
+                Cobject = "BRAVO";
+                //            alphasp.GetComponent("Halo").size =5;
+                halo = (Behaviour)bravosp.GetComponent("Halo");
+                halo.enabled = true;
+            }
+            if (Input.GetKeyDown("c") && (Cman != 2))
+            {
+                state = 4;
+                Cobject = "CHARLIE";
+                //            alphasp.GetComponent("Halo").size =5;
+                halo = (Behaviour)charliesp.GetComponent("Halo");
+                halo.enabled = true;
+            }
+            if (Input.GetKeyDown("d") && (Cman != 3))
+            {
+                state = 4;
+                Cobject = "DELTA";
+                //            alphasp.GetComponent("Halo").size =5;
+                halo = (Behaviour)deltasp.GetComponent("Halo");
+                halo.enabled = true;
+            }
+            if (Input.GetKeyDown("backspace"))
+            {
+                state = 1;
+                Cverb = "";
+            }
+        } else if (state == 4)
+        {
+            if (Input.GetKeyDown("backspace"))
+            {
+                halo.enabled = false;
+                state = 3;
+                Cobject = "";
+            }
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+                halo.enabled = false;
+                state = 99;
+            }
+        }
+        else if (state == 2)
         {
             if (Cman == 0) halo = (Behaviour)alphasp.GetComponent("Halo");
             if (Cman == 1) halo = (Behaviour)bravosp.GetComponent("Halo");
@@ -219,30 +277,13 @@ public class UIIOMan : MonoBehaviour
                         state = 1;
                         Cverb = "";
                     }
-                } else if ((c == '\n') || (c == '\r')) // enter/return
+                } else if (((c == '\n') || (c == '\r')) && ((Cverb == "ENGAGE")|| (Cobject.Length > 1)))  // enter/return
                 {
-                    // done?
-                    Lsubject = Csubject;
-                    Lslot = emptyslot[Cman];
-                    cmdArray[Cman, emptyslot[Cman]] = CurrentOrder;
-                    Csubject = "";
-                    Cverb = "";
-                    Cobject = "";
-                    DOrder = "[DONE----]";
-                    state = 0;
-                    xt = -1;
-                    yt = -1;
-                    gridscript.xSelected = -1;
-                    gridscript.ySelected = -1;
-                    if (Cman == 0) halo = (Behaviour)alphasp.GetComponent("Halo");
-                    if (Cman == 1) halo = (Behaviour)bravosp.GetComponent("Halo");
-                    if (Cman == 2) halo = (Behaviour)charliesp.GetComponent("Halo");
-                    if (Cman == 3) halo = (Behaviour)deltasp.GetComponent("Halo");
-                    halo.enabled = false;
+                    state = 99;
                 }
                 else if ((Cverb != "ENGAGE") && (((Cobject == "") && (c - 'a' > -1) && (c - 'z' < 1)) || ((Cobject!= "") && (c - '0' > -1) && (c - '9' < 1)) ))
                 {
-                    Cobject += c;
+                    Cobject = (Cobject +c).ToUpper();
                 }
             }
             
@@ -266,6 +307,26 @@ public class UIIOMan : MonoBehaviour
             }
             
 
+        } else if (state == 99)
+        {
+            // done?
+            Lsubject = Csubject;
+            Lslot = emptyslot[Cman];
+            cmdArray[Cman, emptyslot[Cman]] = CurrentOrder;
+            Csubject = "";
+            Cverb = "";
+            Cobject = "";
+            DOrder = "[DONE----]";
+            state = 0;
+            xt = -1;
+            yt = -1;
+            gridscript.xSelected = -1;
+            gridscript.ySelected = -1;
+            if (Cman == 0) halo = (Behaviour)alphasp.GetComponent("Halo");
+            if (Cman == 1) halo = (Behaviour)bravosp.GetComponent("Halo");
+            if (Cman == 2) halo = (Behaviour)charliesp.GetComponent("Halo");
+            if (Cman == 3) halo = (Behaviour)deltasp.GetComponent("Halo");
+            halo.enabled = false;
         }
         if (Cobject != "")
         {
@@ -308,7 +369,7 @@ public class UIIOMan : MonoBehaviour
         //Update Input
         terminalInput.GetComponent<Text>().text = DOrder;
 
-		if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown((KeyCode.Backspace))) {
+		if (Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter) || Input.GetKey((KeyCode.Backspace))) {
 			//Update Output
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 4; j++) {
