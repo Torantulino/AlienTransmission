@@ -7,11 +7,13 @@ public class Health : MonoBehaviour {
 	public int maxHP = 1;
     public bool isDead;
     int hp;
+	public AudioClip deathSound;
+	AudioSource source;
 
 	void Start() {
 		hp = maxHP;
         isDead = false;
-
+		source = GetComponent<AudioSource>();
     }
 
 	public void Damage() {
@@ -25,7 +27,14 @@ public class Health : MonoBehaviour {
 	}
 
 	void Kill() {
+		if (isDead) {
+			return;
+		}
         isDead = true;
+
+		if (deathSound) {
+			source.PlayOneShot(deathSound);
+		}
 
         if (GetComponent<AlienAI>())
         {

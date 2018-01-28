@@ -249,6 +249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 1
   isDead: 0
+  deathSound: {fileID: 8300000, guid: c486659009515f64c890a9a3b6aed14d, type: 3}
 --- !u!114 &114601724891533766
 MonoBehaviour:
   m_ObjectHideFlags: 1
