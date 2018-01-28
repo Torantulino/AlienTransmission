@@ -12,19 +12,18 @@ public class SoldierReport : MonoBehaviour {
 
 	UIIOMan uiioMan;
 	GridScript grid;
+	Health health;
 
 	void Start() {
 		uiioMan = GameObject.FindObjectOfType<UIIOMan>();
 		grid = GameObject.FindObjectOfType<GridScript>();
+		health = GetComponent<Health>();
 	}
 
 	void Update() {
 	}
 
 	public List<string> Report() {
-        int nlen = 0;
-        int pos;
-        string tmptxt;
         HashSet<Interesting> seen = new HashSet<Interesting>();
 
 		for (int i = 0; i < numRays; i++) {
@@ -66,55 +65,69 @@ public class SoldierReport : MonoBehaviour {
 					break;
 				}
 			}
-			if (count.Count == 1) {
-				string gridPos = grid.CoordsToGridString(grid.WorldCoordsToGrid(count.FirstPos));
-				tmptxt = transform.name + " saw a " + count.Type + " at " + gridPos;
+
+			if (health.isDead) {
+				reports.Add(Garble(Garble(Garble(Garble(Garble(Garble("AAARARRRRRRGGGGHHHHH!!!!!!!!!")))))));
 			} else {
-				tmptxt = transform.name + " saw " + count.Count + " " + count.Type;
+				string report;
+				if (count.Count == 1) {
+					string gridPos = grid.CoordsToGridString(grid.WorldCoordsToGrid(count.FirstPos));
+					report = transform.name + " saw a " + count.Type + " at " + gridPos;
+				} else {
+					report = transform.name + " saw " + count.Count + " " + count.Type;
+				}
+
+				reports.Add(Garble(report));
 			}
-
-            string[] sn1 = { "&", "$", "?", "#", "!", "@" };
-            string[] sn3 = { "???", "#$1", "***" };
-            string[] sn5 = { "<static>", "*HISS*", "<crackle>" };
-            string noise = "";
-            int ierr;
-            ierr = Random.Range(-1, tmptxt.Length * 2 / 3);
-            while (ierr > 0)
-            {
-                ierr -= 1;
-                nlen = 1;
-                noise = sn1[Random.Range(0, 6)];
-                pos = Random.Range(0, tmptxt.Length - nlen);
-                tmptxt = tmptxt.Substring(0, pos) + noise + tmptxt.Substring(pos + nlen, tmptxt.Length - pos - nlen);
-
-            }
-            ierr = Random.Range(-1, tmptxt.Length / 12);
-            while (ierr > 0)
-            {
-                ierr -= 1;
-                nlen = 3;
-                noise = sn3[Random.Range(0, 3)];
-                pos = Random.Range(0, tmptxt.Length - nlen);
-                tmptxt = tmptxt.Substring(0, pos) + noise + tmptxt.Substring(pos + nlen, tmptxt.Length - pos - nlen);
-
-            }
-            ierr = Random.Range(-1, tmptxt.Length / 20);
-            while (ierr > 0)
-            {
-                if (Random.value < 0.5) break;
-                ierr -= 1;
-                nlen = 6;
-                noise = sn5[Random.Range(0, 3)];
-                pos = Random.Range(0, tmptxt.Length - nlen);
-                tmptxt = tmptxt.Substring(0, pos) + noise + tmptxt.Substring(pos + nlen, tmptxt.Length - pos - nlen);
-            }
-
-
-            reports.Add(tmptxt);
 		}
 
 		uiioMan.Report(reports, GetComponent<SoldierInfo>().name);
 
 		return reports;
+	}
+
+	string Garble(string original) {
+		int nlen = 0;
+		int pos;
+
+		string result = original;
+		// Add randomised distortion to a string.
+		string[] sn1 = { "&", "$", "?", "#", "!", "@" };
+		string[] sn3 = { "???", "#$1", "***" };
+		string[] sn5 = { "<static>", "*HISS*", "<crackle>" };
+		string noise = "";
+		int ierr;
+		ierr = Random.Range(-1, result.Length * 2 / 3);
+		while (ierr > 0)
+		{
+			ierr -= 1;
+			nlen = 1;
+			noise = sn1[Random.Range(0, 6)];
+			pos = Random.Range(0, result.Length - nlen);
+			result = result.Substring(0, pos) + noise + result.Substring(pos + nlen, result.Length - pos - nlen);
+
+		}
+		ierr = Random.Range(-1, result.Length / 12);
+		while (ierr > 0)
+		{
+			ierr -= 1;
+			nlen = 3;
+			noise = sn3[Random.Range(0, 3)];
+			pos = Random.Range(0, result.Length - nlen);
+			result = result.Substring(0, pos) + noise + result.Substring(pos + nlen, result.Length - pos - nlen);
+
+		}
+		ierr = Random.Range(-1, result.Length / 20);
+		while (ierr > 0)
+		{
+			if (Random.value < 0.5) break;
+			ierr -= 1;
+			nlen = 6;
+			noise = sn5[Random.Range(0, 3)];
+			pos = Random.Range(0, result.Length - nlen);
+			result = result.Substring(0, pos) + noise + result.Substring(pos + nlen, result.Length - pos - nlen);
+		}
+
+		return result;
 	}
 }
