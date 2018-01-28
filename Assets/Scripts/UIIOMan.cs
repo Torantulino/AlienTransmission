@@ -30,6 +30,7 @@ public class UIIOMan : MonoBehaviour
     public CommandController CmdController;
     public TurnManager TurnManager;
 
+    private int TurnTime = 0;
     public const int numOrder = 3;
     private string FixedText = "";
     private string DOrder = "";
@@ -86,10 +87,20 @@ public class UIIOMan : MonoBehaviour
 	}
 
     public void ExecuteCmds() {
+        state = 11;
+        chargeTransmit = 0;
+        TurnTime = 0;
+        Cobject = "";
+        Cverb = "";
+        Csubject = "";
+        DOrder = "";
         CmdController.UpdateCommands(cmdArray);
         TurnManager.EnterTurn(Turn.PlayerMoving);
     }
-
+ /*   private void FixedUpdate()
+    {
+        if (state == 11) TurnTime += 1;
+    }*/
     // Update is called once per frame
     void Update() {
         int[] emptyslot;
@@ -167,20 +178,34 @@ public class UIIOMan : MonoBehaviour
         if (state == 10)
         {
             chargeTransmit += 1;
-            FixedText = "----------------------------------------\n<color=yellow>CHARGING TRANSMISSION\n";
+            FixedText = "<color=yellow>----------------------------------------\nCHARGING TRANSMISSION\n";
             for (int i = 0; i < (chargeTransmit / 5); i++) FixedText += "##";
             FixedText += "</color>";
             if (chargeTransmit == 80)
             {
                 ExecuteCmds();
-                state = 0;
+                state = 11;
                 chargeTransmit = 0;
+                TurnTime = 0;
             }
             if (Input.GetKeyUp("space") || Input.GetKeyUp(KeyCode.Return))
             {
                 state = 0;
                 DOrder = "TRANSMISSION CANCELLED";
             }
+        } else if (state == 11){
+            TurnTime += 1;
+            FixedText = "<color=red>RECIEVING TRANSMISSION, PLEASE WAIT\n";
+            int limitT = 300;
+            for (int i = 0; i < (TurnTime / 5); i++) FixedText += "#";
+            FixedText += "</color><color=grey>";
+            for (int i = 0; i < ((limitT - TurnTime) / 5); i++) FixedText += ".";
+            FixedText += "</color>\n<color=red>";
+            for (int i = 0; i < (TurnTime / 5); i++) FixedText += "#";
+            FixedText += "</color><color=grey>";
+            for (int i = 0; i < ((limitT - TurnTime) / 5); i++) FixedText += ".";
+            FixedText += "</color>";
+            if (TurnTime > limitT) state = 0;
         }
         else if (state < 2)
         {
@@ -422,6 +447,7 @@ public class UIIOMan : MonoBehaviour
 			//Update Output
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 4; j++) {
+ 
 					radioArray[i, j].GetComponent<Text>().text = cmdArray[j, i];
                     //    if (!string.IsNullOrEmpty(cmdArray[j, i]))
                     //    {

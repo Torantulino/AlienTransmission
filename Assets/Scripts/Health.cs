@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class Health : MonoBehaviour {
@@ -48,8 +49,10 @@ public class Health : MonoBehaviour {
 	    }
 	    else
 	    {
-	        
-	    }
+            Debug.Log("Soldier DED!");
+            soldierAnimator.SetBool("isMIA", true);
+	        this.gameObject.GetComponentInChildren<LineRenderer>().enabled = false;
+        }
 
         
 	}
@@ -58,5 +61,7 @@ public class Health : MonoBehaviour {
     {
         hp = maxHP;
         isDead = false;
+        soldierAnimator.SetBool("isMIA", false);
+        this.gameObject.GetComponentInChildren<LineRenderer>().enabled = true;
     }
 }
