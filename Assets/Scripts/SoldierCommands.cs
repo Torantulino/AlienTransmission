@@ -9,7 +9,6 @@ using UnityEngine.AI;
 public class SoldierCommands : MonoBehaviour
 {
     public float TurnSpeed = 2f;
-    public GridScript gridScript;
 
     public List<ICommand> CommandList { get; set; }
     public bool CanAction { get; set; }
@@ -19,6 +18,7 @@ public class SoldierCommands : MonoBehaviour
     private NavMeshAgent agent;
     private Shoot shoot;
 	private Health health;
+    private GridScript grid;
 
     private void Awake()
     {
@@ -27,6 +27,7 @@ public class SoldierCommands : MonoBehaviour
         CanAction = false;
         shoot = GetComponent<Shoot>();
 		health = GetComponent<Health>();
+        grid = GameObject.FindObjectOfType<GridScript>();
     }
 
     private void Update()
@@ -146,19 +147,31 @@ public class SoldierCommands : MonoBehaviour
 
     private IEnumerator HandleHelp(HelpCommand command)
     {
-        soldierAnimator.SetBool("isHelping", true);
+        soldierAnimator.SetBool("isMoving", true);
+        agent.destination = command.SoldierToHeal.transform.position;
 
-        var currentGridPosition = gridScript.WorldCoordsToGrid(transform.position);
+        if (agent.pathPending)
+            yield return null;
 
-        var isAdjacentTo = gridScript.IsAdjacent(command.TargetPosition, currentGridPosition);
+        var currentGridPosition = grid.WorldCoordsToGrid(transform.position);
 
-        while(!isAdjacentTo)
+        var isAdjacentTo = grid.IsAdjacent(command.TargetPosition, currentGridPosition);
+
+        while (!isAdjacentTo)
         {
             yield return null;
         }
 
+        //Now stop moving
+        agent.isStopped = true;
+        soldierAnimator.SetBool("isMoving", false);
+        //soldierAnimator.SetBool("isHelping", true);
+
+        yield return new WaitForSeconds(1f);
+
         command.Completed = true;
-        soldierAnimator.SetBool("isHelping", false);
+
+        //soldierAnimator.SetBool("isHelping", false);
     }
 
 
