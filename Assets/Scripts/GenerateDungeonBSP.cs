@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 using Assets.Scripts.ProcGenHelpers;
 
@@ -199,7 +200,6 @@ public class GenerateDungeonBSP : MonoBehaviour
             tm.AlienList[i] = ais[i];
         }
 
-
     }
 
 
@@ -227,10 +227,6 @@ public class GenerateDungeonBSP : MonoBehaviour
             Rectangle bottom = new Rectangle(rect.x, rect.y, rect.width, pivotLineY - rect.y);
 
             return new Tree<Rectangle>(rect, RecurseCreateTree(top, togo - 1), RecurseCreateTree(bottom, togo - 1));
-
-
-
-
         }
         else
         {
