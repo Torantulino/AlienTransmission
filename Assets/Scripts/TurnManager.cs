@@ -102,6 +102,12 @@ public class TurnManager : MonoBehaviour
                 {
                     //Need to show the corpse - we could render a sprite at the same position rather than changing the layer
                     alien.gameObject.layer = 0;
+                    if (alien.transform.childCount > 0)
+                    {
+                        var child = alien.transform.GetChild(0);
+                        child.gameObject.SetActive(true);
+                        child.gameObject.layer = 0;
+                    }
                 }
             }
         }
