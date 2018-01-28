@@ -17,6 +17,7 @@ public class SoldierCommands : MonoBehaviour
 
     private NavMeshAgent agent;
     private Shoot shoot;
+	private Health health;
 
     private void Awake()
     {
@@ -24,13 +25,16 @@ public class SoldierCommands : MonoBehaviour
         CommandList = new List<ICommand>();
         CanAction = false;
         shoot = GetComponent<Shoot>();
+		health = GetComponent<Health>();
     }
 
     private void Update()
     {
         if (CanAction && CommandList.Any(x => !x.Completed))
-        {
-            StartCoroutine(RunAction());
+		{	
+			if (!health.isDead) {
+				StartCoroutine(RunAction());
+			}
         }
     }
 
