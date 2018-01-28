@@ -110,15 +110,14 @@ public class SoldierCommands : MonoBehaviour
     private IEnumerator HandleFaceCommand(FaceCommand command)
     {
         soldierAnimator.SetBool("isMoving", true);
-        float angle = Vector3.Angle(command.Target, transform.forward);
-        var desiredRotQ = Quaternion.Euler(0, angle, 0);
-        transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotQ, Time.deltaTime * Damping);
 
-        while(transform.rotation.y != angle)
-        {
-            yield return null;
-        }
+        Vector3 targetDir = command.Target - transform.position;
+        float step = 3 * Time.deltaTime;
+        Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0F);
+        Debug.DrawRay(transform.position, newDir, Color.red);
+        transform.rotation = Quaternion.LookRotation(newDir);
 
+        yield return new WaitForSeconds(2);
         command.Completed = true;
         soldierAnimator.SetBool("isMoving", false);
     }
