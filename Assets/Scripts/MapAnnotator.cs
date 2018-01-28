@@ -21,6 +21,11 @@ public class MapAnnotator : MonoBehaviour
         selectedIcon = EventSystem.current.currentSelectedGameObject.transform.GetChild(0).gameObject;
     }
 
+    public void TargetIcon()
+    {
+      //  targetedIcon = 
+    }
+
     public void PlaceIcon()
     {
         if (selectedIcon != null)

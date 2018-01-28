@@ -1,16 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class MapIconInteraction : MonoBehaviour {
+public class MapIconInteraction : MonoBehaviour
+{
+ 
+    void OnGUI()
+    {
+        var evt = Event.current;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        if (evt.type == EventType.MouseDown && evt.button == 1)
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }
