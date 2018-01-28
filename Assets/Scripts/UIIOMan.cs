@@ -32,7 +32,7 @@ public class UIIOMan : MonoBehaviour
 
     private AudioSource Source;
     public AudioClip fourKeys;
-
+    private int soundtick = 0;
     private int TurnTime = 0;
     public const int numOrder = 3;
     private string FixedText = "";
@@ -202,10 +202,10 @@ public class UIIOMan : MonoBehaviour
                 state = 10;
                 chargeTransmit = 0;
             }
-            if (Input.GetKeyDown("a") || Input.GetKeyDown("b") || Input.GetKeyDown("c") || Input.GetKeyDown("d"))
+         /*   if (Input.GetKeyDown("a") || Input.GetKeyDown("b") || Input.GetKeyDown("c") || Input.GetKeyDown("d"))
             {
                 Source.PlayOneShot(fourKeys);
-            }
+            }*/
         }
         if (state == 10)
         {
@@ -256,23 +256,27 @@ public class UIIOMan : MonoBehaviour
                 if (Cman == 2) halo = (Behaviour)charliesp.GetComponent("Halo");
                 if (Cman == 3) halo = (Behaviour)deltasp.GetComponent("Halo");
                 halo.enabled = false;
+                soundtick = 0;
             }
 
             if (Input.GetKeyUp("m"))
             {
                 state = 2;
+                soundtick = 0;
                 Cverb = "MOVE";
                 if ((Csubject == "") && (Lsubject != "")) Csubject = Lsubject;
             }
             if (Input.GetKeyUp("f"))
             {
                 state = 2;
+                soundtick = 0;
                 Cverb = "FACE";
                 if ((Csubject == "") && (Lsubject != "")) Csubject = Lsubject;
             }
             if (Input.GetKeyUp("e"))
             {
                 state = 2;
+                soundtick = 0;
                 Cverb = "ENGAGE";
                 if ((Csubject == "") && (Lsubject != "")) Csubject = Lsubject;
             }
@@ -285,11 +289,13 @@ public class UIIOMan : MonoBehaviour
             if (Input.GetKeyUp("h"))
             {
                 state = 3;
+                soundtick = 0;
                 Cverb = "HELP";
                 if ((Csubject == "") && (Lsubject != "")) Csubject = Lsubject;
             }
         } else if (state == 3)
         {
+        
             FixedText = "[A/B/C/D]<i> to select a soldier to assist</i>";
             FixedText = "<color=grey>" + FixedText + "</color>";
 
@@ -389,6 +395,7 @@ public class UIIOMan : MonoBehaviour
                 }
                 else if ((Cverb != "ENGAGE") && (((Cobject == "") && (c - 'a' > -1) && (c - 'z' < 1)) || ((Cobject!= "") && (c - '0' > -1) && (c - '9' < 1)) ))
                 {
+                    soundtick = 0;
                     Cobject = (Cobject +c).ToUpper();
                 }
             }
@@ -464,10 +471,22 @@ public class UIIOMan : MonoBehaviour
                 if ((DOrder.Length - 1) > CurrentOrder.Length)
                 {
                     DOrder = DOrder.Substring(0, DOrder.Length - 2) + "_";
+                    if (soundtick == 0)
+                    {
+                        Source.PlayOneShot(fourKeys);
+                    }
+                    soundtick += 1;
+                    if (soundtick == 3) soundtick = 0;
                 }
                 else
                 {
                     DOrder = CurrentOrder.Substring(0, DOrder.Length) + "_";
+                    if (soundtick == 0)
+                    {
+                        Source.PlayOneShot(fourKeys);
+                    }
+                    soundtick += 1;
+                    if (soundtick == 3) soundtick = 0;
                 }
 
             }
