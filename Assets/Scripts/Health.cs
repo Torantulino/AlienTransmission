@@ -8,7 +8,8 @@ public class Health : MonoBehaviour {
     public bool isDead;
     int hp;
 	public AudioClip deathSound;
-	AudioSource source;
+    public Animator soldierAnimator;
+    AudioSource source;
 
 	void Start() {
 		hp = maxHP;
@@ -36,15 +37,21 @@ public class Health : MonoBehaviour {
 			source.PlayOneShot(deathSound);
 		}
 
-        if (GetComponent<AlienAI>())
-        {
-            var alienAi = GetComponent<AlienAI>();
-            alienAi.canAct = false;
+	    if (GetComponent<AlienAI>())
+	    {
+	        var alienAi = GetComponent<AlienAI>();
+	        alienAi.canAct = false;
 
-			var interesting = GetComponent<Interesting>();
-			interesting.Type = "dead " + interesting.Type;
-			interesting.priority -= 10;
-        }
+	        var interesting = GetComponent<Interesting>();
+	        interesting.Type = "dead " + interesting.Type;
+	        interesting.priority -= 10;
+	    }
+	    else
+	    {
+	        
+	    }
+
+        
 	}
 
     public void Revive()
