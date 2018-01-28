@@ -7,13 +7,17 @@ public class Shoot : MonoBehaviour {
 	public float shotAngle = 90;
 	public float range = 10;
 
+	public AudioClip fireSound;
+	AudioSource source;
+
 	void Start() {
+		source = GetComponent<AudioSource>();
 	}
 
-	void Update() {
-	}
-	
 	public void Fire() {
+		if (!source.isPlaying) {
+			source.PlayOneShot(fireSound);
+		}
 		var targets = new HashSet<Health>();
 
 		for (int i = 0; i < numRays; i++) {
