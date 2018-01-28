@@ -210,6 +210,7 @@ public class UIIOMan : MonoBehaviour
         if (state == 10)
         {
             chargeTransmit += 1;
+            Source.PlayOneShot(fourKeys);
             FixedText = "<color=yellow>----------------------------------------\nCHARGING TRANSMISSION\n";
             for (int i = 0; i < (chargeTransmit / 5); i++) FixedText += "##";
             FixedText += "</color>";

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
 public class SoldierReport : MonoBehaviour {
@@ -22,6 +21,9 @@ public class SoldierReport : MonoBehaviour {
 	}
 
 	void Update() {
+		if (Input.GetKeyDown(KeyCode.F3)) {
+			Report();
+		}
 	}
 
 	public List<string> Report() {
