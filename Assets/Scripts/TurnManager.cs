@@ -104,7 +104,10 @@ public class TurnManager : MonoBehaviour
 
         foreach (var alien in AlienList)
         {
-            alien.canAct = true;
+            if (!alien.GetComponent<Health>().isDead)
+            {
+                alien.canAct = true;
+            }
         }
     }
 }
