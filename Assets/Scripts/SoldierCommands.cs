@@ -170,6 +170,8 @@ public class SoldierCommands : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
+        var health = command.SoldierToHeal.GetComponent<Health>();
+        health.Revive();
         command.Completed = true;
 
         //soldierAnimator.SetBool("isHelping", false);
