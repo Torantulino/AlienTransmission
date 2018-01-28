@@ -8,7 +8,7 @@ using UnityEngine.AI;
 
 public class SoldierCommands : MonoBehaviour
 {
-    public float Damping = 10f;
+    public float TurnSpeed = 2f;
 
     public List<ICommand> CommandList { get; set; }
     public bool CanAction { get; set; }
@@ -119,7 +119,7 @@ public class SoldierCommands : MonoBehaviour
         soldierAnimator.SetBool("isMoving", true);
 
         Vector3 targetDir = command.Target - transform.position;
-        float step = 3 * Time.deltaTime;
+        float step = TurnSpeed * Time.deltaTime;
         Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0F);
         Debug.DrawRay(transform.position, newDir, Color.red);
         transform.rotation = Quaternion.LookRotation(newDir);
