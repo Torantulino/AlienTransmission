@@ -20,6 +20,13 @@ public class AlienAI : MonoBehaviour {
 		agent.enabled = canAct;
 		if (canAct) {
 			if (target) {
+				var targetHealth = target.GetComponent<Health>();
+				if (targetHealth.isDead) {
+					target = null;
+					Debug.Log("Target died, retargetting.");
+					return;
+				}
+
 				agent.destination = target.position;
 
 				if (Vector3.Distance(target.position, transform.position) < attackRange) {
@@ -36,9 +43,12 @@ public class AlienAI : MonoBehaviour {
 				// No target, find a new one
 				foreach (var collider in Physics.OverlapSphere(transform.position, detectionRange)) {
 					var soldier = collider.GetComponent<SoldierReport>();
-					if (soldier && Vector3.Distance(soldier.transform.position, transform.position) < detectionRange) {
-						target = soldier.transform;
-						break;
+					if (soldier) {
+						var soldierHealth = soldier.GetComponent<Health>();
+						if (!soldierHealth.isDead && Vector3.Distance(soldier.transform.position, transform.position) < detectionRange) {
+							target = soldier.transform;
+							break;
+						}
 					}
 				}
 			}

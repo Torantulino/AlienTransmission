@@ -50,7 +50,7 @@ public class UIIOMan : MonoBehaviour
     private GameObject gridcam;
     private GridScript gridscript;
     // Use this for initialization
-    void Start () {
+    void Awake () {
         //Use this to access text: alphaRad1.InputField.text
         //Use this to set text (feedback from Agents): SEE BELOW
 
