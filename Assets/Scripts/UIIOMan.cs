@@ -585,7 +585,7 @@ public class UIIOMan : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
-            for (int j = 0; j < numOrder - 1; j++)
+            for (int j = 0; j < numOrder; j++)
             {
                 cmdArray[i, j] = "";
             }
