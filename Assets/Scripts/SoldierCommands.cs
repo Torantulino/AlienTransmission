@@ -61,6 +61,7 @@ public class SoldierCommands : MonoBehaviour
         if (agent != null)
         {
             agent.isStopped = true;
+            agent.SetDestination(transform.position);
         }
         CanAction = false;
         CommandList.Clear();
