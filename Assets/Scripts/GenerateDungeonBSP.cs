@@ -117,13 +117,13 @@ public class GenerateDungeonBSP : MonoBehaviour
                 playerPositions.Add(new Point(x,y));
                 GameObject b = GameObject.Instantiate(bravo);
                 b.transform.position = new Vector3(x - dimension / 2, 0, y + 3 - dimension / 2);
-                playerPositions.Add(new Point(x, y+1));
+                playerPositions.Add(new Point(x, y+3));
                 GameObject c = GameObject.Instantiate(charlie);
                 c.transform.position = new Vector3(x - dimension / 2, 0, y + 6 - dimension / 2);
-                playerPositions.Add(new Point(x, y+2));
+                playerPositions.Add(new Point(x, y+5));
                 GameObject d = GameObject.Instantiate(delta);
                 d.transform.position = new Vector3(x - dimension / 2, 0, y + 7 - dimension / 2);
-                playerPositions.Add(new Point(x, y+3));
+                playerPositions.Add(new Point(x, y+7));
 
                 break;
             }
