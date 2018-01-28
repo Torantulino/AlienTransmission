@@ -5,7 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class TitleScene : MonoBehaviour {
 
-	void Start() {
+	void Update() {
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			Application.Quit();
+		}
 	}
 
 	public void Begin() {
