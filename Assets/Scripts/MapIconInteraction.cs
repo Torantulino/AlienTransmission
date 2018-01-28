@@ -11,7 +11,12 @@ public class MapIconInteraction : MonoBehaviour
     {
         var evt = Event.current;
 
-        if (evt.type == EventType.MouseDown && evt.button == 1)
+		var mousePos = Input.mousePosition;
+
+		var rect = GetComponent<RectTransform>();
+		var posRect = rect.rect;
+
+		if (evt.type == EventType.MouseDown && evt.button == 1 && rect.rect.Contains(mousePos - rect.position))
         {
             Destroy(this.gameObject);
         }
