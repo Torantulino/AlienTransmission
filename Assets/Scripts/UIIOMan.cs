@@ -38,6 +38,7 @@ public class UIIOMan : MonoBehaviour
     private int chargeTransmit = 0;
 
     private GameObject[,] radioArray;
+    private string[,] reportArray;
     private string[,] cmdArray; // array of commands for each soldier
     private string CurrentOrder;
     private int state = 0;
@@ -82,11 +83,35 @@ public class UIIOMan : MonoBehaviour
                 cmdArray[i,j] = "";
             }
         }
-       
+        reportArray = new string[4, numOrder];
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < numOrder; j++)
+            {
+                reportArray[i, j] = ">";
+            }
+        }
 
-	}
+    }
 
     public void ExecuteCmds() {
+        reportArray = new string[4, numOrder];
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < numOrder; j++)
+            {
+                reportArray[i, j] = ">";
+            }
+        }
+
+        for (int j = 0; j < 4; j++)
+        {
+                for (int i = 0; i < 3; i++)
+                {
+                    radioArray[i, j].GetComponent<Text>().text = cmdArray[j, i];
+                }
+        }
+
         state = 11;
         chargeTransmit = 0;
         TurnTime = 0;
@@ -444,25 +469,56 @@ public class UIIOMan : MonoBehaviour
         terminalInput.GetComponent<Text>().text =FixedText+"\n"+ DOrder;
 
 		if (Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter) || Input.GetKey((KeyCode.Backspace))) {
-			//Update Output
-			for (int i = 0; i < 3; i++) {
-				for (int j = 0; j < 4; j++) {
- 
-					radioArray[i, j].GetComponent<Text>().text = cmdArray[j, i];
-                    //    if (!string.IsNullOrEmpty(cmdArray[j, i]))
-                    //    {
-                    //        var str = cmdArray[j, i].Split();
-                    //        var message = str[0] + "<color=yellow> " + str[1] + "</color> " + str[2];
+            //Update Output
+            for (int j = 0; j < 4; j++)
+            {
+                if ((cmdArray[j, 0]) == "")
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
 
 
-                    //        //radioArray[i,j].GetComponent<Text>().text = cmdArray[j,i];
-                    //        radioArray[i, j].GetComponent<Text>().text = message;
-                    //    }
-                    //    else
-                    //    {
-                    //        radioArray[i, j].GetComponent<Text>().text = cmdArray[j, i];
-                    //    }
-                    //}
+
+                        radioArray[i, j].GetComponent<Text>().text = reportArray[j, i];
+                        //    if (!string.IsNullOrEmpty(cmdArray[j, i]))
+                        //    {
+                        //        var str = cmdArray[j, i].Split();
+                        //        var message = str[0] + "<color=yellow> " + str[1] + "</color> " + str[2];
+
+
+                        //        //radioArray[i,j].GetComponent<Text>().text = cmdArray[j,i];
+                        //        radioArray[i, j].GetComponent<Text>().text = message;
+                        //    }
+                        //    else
+                        //    {
+                        //        radioArray[i, j].GetComponent<Text>().text = cmdArray[j, i];
+                        //    }
+                        //}
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+
+
+
+                        radioArray[i, j].GetComponent<Text>().text = "> " + cmdArray[j, i];
+                        //    if (!string.IsNullOrEmpty(cmdArray[j, i]))
+                        //    {
+                        //        var str = cmdArray[j, i].Split();
+                        //        var message = str[0] + "<color=yellow> " + str[1] + "</color> " + str[2];
+
+
+                        //        //radioArray[i,j].GetComponent<Text>().text = cmdArray[j,i];
+                        //        radioArray[i, j].GetComponent<Text>().text = message;
+                        //    }
+                        //    else
+                        //    {
+                        //        radioArray[i, j].GetComponent<Text>().text = cmdArray[j, i];
+                        //    }
+                        //}
+                    }
                 }
             }
 		}
@@ -470,19 +526,26 @@ public class UIIOMan : MonoBehaviour
 
 	public void Report(List<string> reports, string soldierName) {
 		int soldierId = 0;
+        string col = "";
 		if (soldierName.ToUpper() == "ALPHA") {
 			soldierId = 0;
+            col = "cyan";
 		} else if (soldierName.ToUpper() == "BRAVO") {
 			soldierId = 1;
+            col = "red";
 		} else if (soldierName.ToUpper() == "CHARLIE") {
 			soldierId = 2;
+            col = "green";
 		} else if (soldierName.ToUpper() == "DELTA") {
 			soldierId = 3;
+            col = "yellow";
 		}
 
 		int i = 0;
 		foreach (var report in reports) {
-			radioArray[i % radioArray.GetLength(0), soldierId].GetComponent<Text>().text = report;
+            reportArray[soldierId, i % radioArray.GetLength(0)] = "<color=" + col + ">|" + report + "|</color>";
+
+            radioArray[i % radioArray.GetLength(0), soldierId].GetComponent<Text>().text ="<color="+col+">|"+ report+"|</color>";
 			i++;
 		}
 	}
