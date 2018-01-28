@@ -82,6 +82,22 @@ public class GridScript : MonoBehaviour
 		return new Vector2Int(x, y);
 	}
 
+    public bool IsAdjacent(Vector2Int target, Vector2Int currentPosition)
+    {
+        if (target == currentPosition)
+            return true;
+
+        var xDiff = Mathf.Abs(target.x - currentPosition.x);
+        if (xDiff < -1 || xDiff > 1)
+            return false;
+
+        var yDiff = Mathf.Abs(target.y - currentPosition.y);
+        if (yDiff < -1 || yDiff > 1)
+            return false;
+
+        return true;
+    }
+
     void OnPostRender()
     {
 		startX = transform.position.x - cam.orthographicSize * cam.aspect + 0.5f;

@@ -27,6 +27,16 @@ public class GenerateDungeonBSP : MonoBehaviour
 
     public int maxAlienTries = 100;
 
+
+
+    public GameObject alpha;
+    public GameObject bravo;
+    public GameObject charlie;
+    public GameObject delta;
+
+    public int maxAlienSpawnSpacing = 2;
+    public int maxAlienSpawnPlayerSpacing = 6;
+
     // Use this for initialization
     void Start()
     {
@@ -90,25 +100,105 @@ public class GenerateDungeonBSP : MonoBehaviour
 
         }
 
+        //spawn players
+
+        List<Point> playerPositions = new List<Point>();
+
+        while (true)
+        {
+            //find 4 adjacent squares
+            int x = Random.Range(0, dimension);
+            int y = Random.Range(0, dimension - 7);
+
+            if (!tiles[x, y] && !tiles[x, y + 1] && !tiles[x, y + 2] && !tiles[x, y + 3] && !tiles[x, y + 4] && !tiles[x, y + 5] && !tiles[x, y + 6] && !tiles[x, y + 7])
+            {
+                GameObject a = GameObject.Instantiate(alpha);
+                a.transform.position = new Vector3(x - dimension / 2, 0, y - dimension / 2);
+                playerPositions.Add(new Point(x,y));
+                GameObject b = GameObject.Instantiate(bravo);
+                b.transform.position = new Vector3(x - dimension / 2, 0, y + 3 - dimension / 2);
+                playerPositions.Add(new Point(x, y+3));
+                GameObject c = GameObject.Instantiate(charlie);
+                c.transform.position = new Vector3(x - dimension / 2, 0, y + 6 - dimension / 2);
+                playerPositions.Add(new Point(x, y+5));
+                GameObject d = GameObject.Instantiate(delta);
+                d.transform.position = new Vector3(x - dimension / 2, 0, y + 7 - dimension / 2);
+                playerPositions.Add(new Point(x, y+7));
+
+                //set up command controller
+
+                GameObject turnManagerObj = GameObject.Find("Turn Manager");
+                CommandController cc = turnManagerObj.GetComponent<CommandController>();
+                cc.SoldierList.Add(a.GetComponent<SoldierInfo>());
+                cc.SoldierList.Add(b.GetComponent<SoldierInfo>());
+                cc.SoldierList.Add(c.GetComponent<SoldierInfo>());
+                cc.SoldierList.Add(d.GetComponent<SoldierInfo>());
+
+                TurnManager turnManagerComponent = turnManagerObj.GetComponent<TurnManager>();
+                turnManagerComponent.SoldierList[0]=(a.GetComponent<SoldierCommands>());
+                turnManagerComponent.SoldierList[1]=(b.GetComponent<SoldierCommands>());
+                turnManagerComponent.SoldierList[2]=(c.GetComponent<SoldierCommands>());
+                turnManagerComponent.SoldierList[3]=(d.GetComponent<SoldierCommands>());
+
+                UIIOMan uIIOMan = GameObject.Find("UIIOManager").GetComponent<UIIOMan>();
+                uIIOMan.alphasp = a.transform.GetChild(0).gameObject;
+                uIIOMan.bravosp = b.transform.GetChild(0).gameObject;
+                uIIOMan.charliesp = c.transform.GetChild(0).gameObject;
+                uIIOMan.deltasp = d.transform.GetChild(0).gameObject;
+
+                break;
+            }
+
+
+
+        }
+
+
 
         //spawn ayys
+
+        List<Point> alienPositions = new List<Point>();
         int tries = Random.Range(minAlienTries, maxAlienTries);
-        for (int i = tries; i > 0; i--) {
+
+        GameObject turnManager = GameObject.Find("Turn Manager");
+        TurnManager tm = turnManager.GetComponent<TurnManager>();
+        List<AlienAI> ais = new List<AlienAI>();
+        for (int i = tries; i > 0; i--)
+        {
             //try to place an ayy
             int x = Random.Range(1, dimension - 1);
             int y = Random.Range(1, dimension - 1);
 
-            if (tiles[x, y] == false) {
-                GameObject p =  GameObject.Instantiate(alien);
-                p.transform.position = new Vector3(x - dimension / 2, 2, y - dimension / 2);
+            if (tiles[x, y] == false)
+            {
+               
+                //ayy lamoas dont start too close to player start position
+                if (playerPositions.Find(p => Mathf.Sqrt(((p.x - x) ^ 2) + ((p.y - y) ^ 2)) < maxAlienSpawnPlayerSpacing) == null)
+                {
+                   
+                    if (alienPositions.Find(p => Mathf.Sqrt(((p.x - x) ^ 2) + ((p.y - y) ^ 2)) < maxAlienSpawnSpacing) == null)
+                    { //make sure ayy lmaos srent spawned to close to each other
+
+
+                        GameObject p = GameObject.Instantiate(alien);
+
+                        ais.Add(p.GetComponent<AlienAI>());
+                        alienPositions.Add(new Point(x, y));
+                        p.transform.position = new Vector3(x - dimension / 2, 2, y - dimension / 2);
+                    }
+                }
             }
 
         }
-    
 
+        tm.AlienList = new AlienAI[ais.Count];
+        for (int  i = 0; i<ais.Count; i++) {
+            tm.AlienList[i] = ais[i];
+        }
 
 
     }
+
 
 
     private Tree<Rectangle> RecurseCreateTree(Rectangle rect, int togo)
@@ -187,7 +277,8 @@ public class GenerateDungeonBSP : MonoBehaviour
 
         //carve an x corridor
 
-        if ((Random.Range(0, 3) % 3 != 0)){
+        if ((Random.Range(0, 3) % 3 != 0))
+        {
 
             if (rect.x >= 1)
             {
@@ -203,7 +294,8 @@ public class GenerateDungeonBSP : MonoBehaviour
 
 
 
-        if ((Random.Range(0, 3) % 3 != 0)){
+        if ((Random.Range(0, 3) % 3 != 0))
+        {
 
             if (rect.x + rect.width < dimension)
             {
@@ -220,7 +312,8 @@ public class GenerateDungeonBSP : MonoBehaviour
             }
         }
 
-        if ((Random.Range(0,3) % 3 != 0)){
+        if ((Random.Range(0, 3) % 3 != 0))
+        {
 
             int corridorX = Random.Range(rect.x + 1, rect.x + rect.width - 2);
             //carve a y corridor
@@ -237,7 +330,8 @@ public class GenerateDungeonBSP : MonoBehaviour
 
         }
 
-        if ((Random.Range(0, 3) % 3 != 0)){
+        if ((Random.Range(0, 3) % 3 != 0))
+        {
 
             int corridorX = Random.Range(rect.x + 1, rect.x + rect.width - 2);
             if (rect.y + rect.height < dimension)
@@ -260,5 +354,5 @@ public class GenerateDungeonBSP : MonoBehaviour
     }
 
 
-    
+
 }
