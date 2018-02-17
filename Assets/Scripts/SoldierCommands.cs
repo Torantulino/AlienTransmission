@@ -138,9 +138,20 @@ public class SoldierCommands : MonoBehaviour
     private IEnumerator HandleEngage(AttackCommand command)
     {
         soldierAnimator.SetBool("isShooting", true);
-        shoot.Fire();
+        var alien = shoot.Fire();
 
         yield return new WaitForSeconds(2);
+
+        if (alien) {
+            //Need to show the corpse - we could render a sprite at the same position rather than changing the layer
+            alien.layer = 0;
+            if (alien.transform.childCount > 0)
+            {
+                var child = alien.transform.GetChild(0);
+                child.gameObject.SetActive(true);
+                child.gameObject.layer = 0;
+            }
+        }
 
         command.Completed = true;
         soldierAnimator.SetBool("isShooting", false);

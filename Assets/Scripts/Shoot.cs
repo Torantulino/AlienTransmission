@@ -20,7 +20,7 @@ public class Shoot : MonoBehaviour {
 		}
 	}
 
-	public void Fire() {
+	public GameObject Fire() {
 		if (!source.isPlaying) {
 			source.PlayOneShot(fireSound);
 		}
@@ -58,6 +58,8 @@ public class Shoot : MonoBehaviour {
 
 		if (closest) {
 			closest.Damage();
+			return closest.gameObject;
 		}
+		return null;
 	}
 }
