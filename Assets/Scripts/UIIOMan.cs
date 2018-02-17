@@ -214,7 +214,10 @@ public class UIIOMan : MonoBehaviour
         if (state == 10)
         {
             chargeTransmit += 1;
-            if ( chargeTransmit < 50) Source.PlayOneShot(fourKeys);
+            if ( chargeTransmit < 50) {
+                Source.volume = 0.1f + 0.9f * Mathf.Pow(chargeTransmit / 50.0f, 2);
+                Source.PlayOneShot(fourKeys);
+            }
             //Source.Play(TransmitClip);
             
             FixedText = "<color=yellow>----------------------------------------\nCHARGING TRANSMISSION\n";
