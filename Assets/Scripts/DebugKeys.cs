@@ -13,7 +13,7 @@ public class DebugKeys : MonoBehaviour {
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
 
-		if (Input.GetKeyDown(KeyCode.Escape)) {
+		if (Input.GetKeyDown(KeyCode.Pause)) {
 			SceneManager.LoadScene("StartView");
 		}
 	}

@@ -196,7 +196,7 @@ public class UIIOMan : MonoBehaviour
                 halo = (Behaviour)deltasp.GetComponent("Halo");
                 halo.enabled = true;
             }
-            if (Input.GetKeyDown("backspace"))
+            if (Input.GetKeyDown("backspace") || Input.GetKeyDown(KeyCode.Escape))
             {
                 cmdArray[Cman, Lslot] = "";
                 if (Lslot > 0) Lslot = Lslot - 1;
@@ -254,7 +254,7 @@ public class UIIOMan : MonoBehaviour
                 FixedText = "<color=grey>" + FixedText + "</color>";
             }
 
-            if (Input.GetKeyDown("backspace"))
+            if (Input.GetKeyDown("backspace") || Input.GetKeyDown(KeyCode.Escape))
             {
                 state = 0;
                 Csubject = "";
@@ -343,7 +343,7 @@ public class UIIOMan : MonoBehaviour
                 halo = (Behaviour)deltasp.GetComponent("Halo");
                 halo.enabled = true;
             }
-            if (Input.GetKeyDown("backspace"))
+            if (Input.GetKeyDown("backspace") || Input.GetKeyDown(KeyCode.Escape))
             {
                 state = 1;
                 Cverb = "";
@@ -354,7 +354,7 @@ public class UIIOMan : MonoBehaviour
                 FixedText = "[ENTER]<i> to finish order</i>";
             FixedText = "<color=grey>" + FixedText + "</color>";
 
-            if (Input.GetKeyDown("backspace"))
+            if (Input.GetKeyDown("backspace") || Input.GetKeyDown(KeyCode.Escape))
             {
                 halo.enabled = false;
                 state = 3;
@@ -384,6 +384,11 @@ public class UIIOMan : MonoBehaviour
             if (Cman == 3) halo = (Behaviour)deltasp.GetComponent("Halo");
             halo.enabled = true;
             if (Cverb != "ENGAGE") gridscript.mainColor = new Color(0f, 1f, 0f, 0.7f);
+            if (Input.GetKeyDown(KeyCode.Escape)) {
+                Cobject = "";
+                Cverb = "";
+                state = 1;
+            }
             foreach (char c in Input.inputString)
             {
                 if (c == '\b') // has backspace/delete been pressed?
@@ -505,7 +510,7 @@ public class UIIOMan : MonoBehaviour
         //Update Input
         terminalInput.GetComponent<Text>().text =FixedText+"\n"+ DOrder;
 
-		if (Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter) || Input.GetKey((KeyCode.Backspace))) {
+		if (Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter) || Input.GetKey((KeyCode.Backspace)) || Input.GetKeyDown(KeyCode.Escape)) {
             //Update Output
             for (int j = 0; j < 4; j++)
             {
